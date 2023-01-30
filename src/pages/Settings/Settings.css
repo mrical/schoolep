@@ -102,3 +102,150 @@
    position: relative;
    background-color: white;
 }
+
+#settings .wrapper-settings .content{
+  display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   height: 95%;
+}
+#settings .wrapper-settings .content .change-password{
+display: flex;
+flex-direction: column;
+margin-top: 5vh;
+}
+#settings .wrapper-settings .content .change-password h4{
+font-size: .7rem;
+}
+#settings .wrapper-settings .content .edit-username{
+display: flex;
+flex-direction: row;
+align-items: center;
+}
+#settings .wrapper-settings .content .edit-username h2{
+   font-family: "Poppins" ,sans-serif;
+   font-weight: 600;
+   color: #FF7A00;
+   font-size: 1.8rem;
+   outline: none;
+}
+#settings .wrapper-settings .content .edit-username .edit-username{
+   font-family: "Poppins" ,sans-serif;
+   font-weight: 900;
+   color: #FF7A00;
+   margin-left: 20px;
+   font-size: 1rem;
+   cursor: pointer;
+}
+#settings .wrapper-settings .content img{
+   width: 150px;
+   height: 150px;
+   border-radius: 50%;
+}
+#settings .wrapper-settings .content .edit-image{
+   position: relative;
+   width: 150px;
+   margin-bottom: 5vh;
+   height: 150px;
+}
+#settings .wrapper-settings .content .edit-image:hover::after{
+  opacity: 1;
+}
+#settings .wrapper-settings .content .edit-image:hover .change-image-icon{
+  opacity: 1;
+  cursor: pointer;
+}
+#settings .wrapper-settings .content .edit-image::after{
+   content: "";
+   width: 100%;
+   height: 100%;
+   transition: opacity .3s ease;
+   z-index: 10;
+   border-radius: 50%;
+   top: 0;
+   left: 0;
+   opacity: 0;
+   background-color: #ffe9d445;
+   position: absolute;
+   cursor: pointer;
+}
+#settings .wrapper-settings .content .change-image-icon{
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   font-size: 3rem;
+   z-index: 100;
+   color: var(--primary-color);
+   transition: opacity .3s ease;
+   opacity: 0;
+}
+#settings .wrapper-settings .content h4{
+   font-family: "Poppins" ,sans-serif;
+   font-weight: 300;
+   color: #ffa755;
+   letter-spacing: 2px;
+   position: relative;
+   top: -5px;
+   font-size: 1rem;
+}
+
+#settings input {
+   background-color: #F5F5F5;
+   border: 1px solid #E2E2E2;
+   outline: none;
+   padding: 14px 20px;
+   border-radius: 8px;
+   margin: 5px 0;
+   font-size: 0.9rem;
+   color:  #898989;
+}
+
+#settings input::placeholder {
+   color: #898989;
+}
+
+#settings .password, .password-c{
+   width: 300px;
+   position: relative;
+}
+
+#settings .password input, .password-c input {
+   width: calc(100% - 40px)
+}
+
+#settings .password .psw-icon, .password-c .psw-icon {
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   right: 10px;
+   font-size: 18px;
+   color: #818181;
+   cursor: pointer;
+}
+
+#settings button {
+   padding: 14px 25px;
+   border: none;
+   background-color: var(--primary-color);
+   font-family: 'Poppins', sans-serif;
+   color: white;
+   font-size: 0.8rem;
+   font-weight: 700;
+   border-radius: 8px;
+   cursor: pointer;
+   transition: background .3s ease-in;
+   margin-top: 5vh;
+}
+
+#settings .auth-btn:hover {
+   background-color:#ff7b00d5;
+}
+
+
+
+
+.file_input_img {
+   display: none;
+}

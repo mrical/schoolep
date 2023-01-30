@@ -18,7 +18,7 @@ const Chat = () => {
   const [searchFriend, setSearchFriend] = useState("")
   const [activeFriend, setActiveFriend] = useState("")
   const [dataActiveFriend, setDataActiveFriend] = useState("")
-  
+  const [loading, setLoading] = useState(true)
   const [deleteSection, setDeleteSection] = useState(false)
 
 
@@ -82,23 +82,20 @@ const Chat = () => {
   }
 
   //DOSTAT ACTIVNEHO FRIENDA
-  const getActiveFriend = async() => {
-    const docRef = doc(db, "users", activeFriend);
-    const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setDataActiveFriend(docSnap.data());
+  const getActiveFriend = () => {
+ 
+      const starCountRef = ref(rdb, `users/` + activeFriend);
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        setDataActiveFriend(data);
+        console.log(data)
         setDeleteSection(false)
         setTimeout(() => {
           const message_ele = document.querySelector(".message:nth-last-child(1)")
           message_ele.scrollIntoView();
-          //var objDiv = document.getElementById("chat-center");
-          //objDiv.scrollTop = objDiv.scrollHeight;
         }, 100)
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
+     });
+
 
     }
     
@@ -229,16 +226,18 @@ const Chat = () => {
 
   // PO NACITANI CHAT SECTION SA NACITAJU VSETKY USERS A FRIENDS
   useEffect(() => {
-    if(!allUsers) {
-      getUsers()
-    }
-    if(!allFriends) {
-      getFriends()
-    }
-
-    getCurrentUserData()
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
   }, [])
 
+  useEffect(() => {
+    if(!loading) {
+      getUsers()
+      getFriends()
+      getCurrentUserData()
+    }
+  }, [loading])
 
   //AK SA CLIKNE NA FRIEND TAK SA VYKONA TOTO:  (DOSTANES VSETKY MESSAGES OD NEHO)
   useEffect(() => {
@@ -367,16 +366,16 @@ const Chat = () => {
                 ))
               }
 
-                {allUsers && allFriends && searchFriend.length < 1 &&
+                {!loading && users && friends && searchFriend.length < 1 &&
 
                   allFriends.sort((a, b) => {
                     return b.timestamp - a.timestamp
                   }).map((f) => (
                     <Friend handleSendMessage={handleSendMessage} allUsers={allUsers} key={f.id} friend={f} activeFriend={activeFriend} setActiveFriend={setActiveFriend} setSearchFriend={setSearchFriend} />
-                  ))
+                  )) 
 
-
-                  
+                
+                
                 }
                
 

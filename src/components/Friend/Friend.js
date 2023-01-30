@@ -13,17 +13,26 @@ const Friend = (props) => {
 
   const { currentUser } = useAuth()
 
+
+
+  const [loading, setLoading] = useState(true)
+
+
   useEffect(() => {
-    props.allUsers.filter((f) => {
-      return f.id === props.friend.id
-    }).map((f) => {
-      setFriend(f)
-    })
-
-
-
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
   }, [])
 
+  useEffect(() => {
+    if(!loading) {
+      props.allUsers.filter((f) => {
+        return f.id === props.friend.id
+      }).map((f) => {
+        setFriend(f)
+      })
+    }
+  }, [loading])
 
 
 
@@ -42,7 +51,7 @@ const Friend = (props) => {
   return (
     <>
     
-    {  friend &&
+    { !loading && friend &&
 
     <div className={props.friend.id === props.activeFriend ? 'friend active' : "friend" } 
     onClick={() => {
@@ -50,7 +59,7 @@ const Friend = (props) => {
         props.setSearchFriend("")
     }} >
         <div className='wrapper' >
-        <img src={friend.profilePic} />
+        <img src={friend.profilePic || "https://i.postimg.cc/zfP6Tk3W/profile-pic-default.png"} />
             <div className='right-side' >
                 <h4>{friend.username}</h4>
                 {props.friend.message && <p  className={props.friend.saw ? "null" : "saw_false"} >{props.friend.toId === friend.id ? props.friend.message.length > 25 ? "Ja: " + props.friend.message.substr(0, 25) + "..." : "Ja: " + props.friend.message : props.friend.message.length > 25 ? props.friend.message.substr(0, 25) + "..." : props.friend.message}</p>}

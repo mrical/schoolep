@@ -1,7 +1,7 @@
 import React, {useContext, useState, useEffect} from "react"
 import { auth, db, sdb, rdb } from "../firebase.js";
 import app from "../firebase.js"
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword,  updatePassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; 
 import { useNavigate } from "react-router-dom";
 import { OnDisconnect, onDisconnect, ref, set } from "firebase/database";
@@ -69,8 +69,8 @@ export function AuthProvider({ children }) {
   }
 
 
-  function updatePassword(password) {
-    return currentUser.updatePassword(password)
+  function updateUserPassword(password) {
+    return updatePassword(currentUser, password)
   }  
 
   useEffect(() => {
@@ -95,8 +95,7 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updateEmail,
-    updatePassword,
-    updatePassword,
+    updateUserPassword,
     updateDisplayName, 
   }
 
