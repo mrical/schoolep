@@ -1,0 +1,285 @@
+#notes {
+    width: 100%;
+    height: 100vh;
+    background-color: #FEEDDD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#notes .wrapper-notes {
+    width: 94.5%;
+    height: 95%;
+    border-radius: 20px;
+    position: relative;
+    background-color: white;
+
+}
+#notes .content-notes {
+    padding: 35px;
+}
+
+#notes .content-notes .titles {
+    display: flex;
+    align-items: center;
+    color: #ffa04e;
+    font-family: "Poppins", sans-serif;
+}
+#notes .content-notes .titles h3{
+    font-size: 1.2rem;
+    margin-left: 10px;
+    font-weight: 300;
+}
+#notes .content-notes .titles .titles-icon{
+    font-size: 1.2rem;
+}
+#notes .notes{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+    padding: 20px 0 30px 0;
+}
+#notes .note h4{
+    font-family: "Poppins", sans-serif;
+    font-size: .8rem;
+    text-decoration: none;
+}
+#notes .note-a{
+    text-decoration: none;
+}
+#notes .note{
+    background-color: #ff9029;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform .1s ease;
+    text-decoration: none;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#notes .note:hover{
+    transform: scale(1.03);
+}
+
+#notes .create-icon{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 40px;
+    color: #ffa04e;
+    text-decoration: none;
+}
+
+
+#notes .content-editor-e {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 95%;
+   width: 100%;
+   flex-direction: column;
+}
+#notes .content-editor-e .titles{
+  width: 90%;
+  display: flex;
+}
+#notes .content-editor-e .titles .back a{
+  position: absolute;
+  color: var(--primary-color);
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+}
+#notes .editor {
+   height: 80%;
+   width: 90%;
+   margin-top: 10px;
+}
+
+#notes .ql-container.ql-snow {
+    border: none;
+    padding: 15px;
+    margin-top:10px;
+    box-shadow: 1px 1px 15px #e7e7e7;
+}
+#notes .ql-container.ql-toolbar {
+    border: none;
+    margin-top:10px;
+}
+
+#notes .ql-toolbar.ql-snow {
+    border: none;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 15px #e7e7e7;
+    padding: 8px;
+}
+
+
+#notes .note-name {
+    width: 30%;
+    border-radius: 10px;
+    background-color:transparent;
+    padding: 12px 15px;
+    font-size: .8rem;
+    color: #FF7A00;
+    outline: none;
+    background-color: #fff2e7;
+    border: none;
+}
+#notes .note-name::placeholder{
+    font-size: .8rem;
+    color: #FF7A00;
+}
+
+#notes .save-edit{
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-size: .8rem;
+    background-color: #FF7A00;
+    outline: none;
+    color: #fff2e7;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.ql-snow .ql-stroke  {
+    stroke: #FF7A00 !important;
+}
+ .ql-fill  {
+    fill: #FF7A00 !important;
+}
+
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+    border-color: #FF7A00 !important;
+}
+
+.ql-snow .ql-picker {
+    color: #FF7A00 !important;
+}
+.ql-snow .ql-picker:hover {
+    color: #FF7A00 !important;
+}
+
+.ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+    color: #ffa047 !important;
+}
+
+
+#notes .all-fields {
+   margin-top: 20px;
+}
+
+#notes .folders {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+    padding: 20px 0 30px 0;
+}
+
+#notes .folders .folder{
+    background-color: #fcc18e;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform .1s ease;
+    text-decoration: none;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#notes .folders .folder-a{
+   text-decoration: none;
+}
+#notes .folders .folder:hover{
+    transform: scale(1.03);
+}
+
+#notes #section-folder {
+    width: 200px;
+    border: 1px solid var(--select-border);
+    border-radius: 10px;
+    padding: 0.25em 0.5em;
+    font-size: .8rem;
+    cursor: pointer;
+    background-color: #fff2e7;
+    color: #FF7A00;
+    outline: none;
+    margin-left: 10px;
+}
+#notes #section-folder option{
+    background-color: #fff2e7;
+    color: #FF7A00;
+}
+
+
+#notes .back a{
+    position: absolute;
+    color: var(--primary-color);
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+  }
+
+
+#notes .all-notes-folder {
+    padding: 30px;
+}
+
+#notes .no-notes {
+    color: #ffdab8;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    width: 400px;
+    font-size: .9rem;
+}
+
+#notes .create-icon-delete {
+    font-size: 1.2rem;
+    margin-left: 10px;
+    cursor: pointer;
+    color: #ff9100;
+}
+
+
+
+#notes .input-for-folder {
+    border-radius: 8px;
+    background-color:transparent;
+    padding: 7px 14px;
+    font-size: .8rem;
+    color: #FF7A00;
+    outline: none;
+    background-color: #fff2e7;
+    border: none;
+    margin-left: 5px;
+}
+
+#notes .input-for-folder::placeholder{
+    font-size: .8rem;
+    color: #FF7A00;
+}
+
+#notes .add-folder{
+    border-radius: 10px;
+    padding: 7px 25px;
+    font-size: .8rem;
+    background-color: #FF7A00;
+    outline: none;
+    color: #fff2e7;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+}

@@ -1,38 +1,69 @@
-.App {
-  text-align: center;
+:root {
+    --width-left: 23%
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#main {
+    width: 100%;
+    height: 100vh;
+    display: flex;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+#main .left-side {
+    width: var(--width-left);
+    height: 100%;
+    background-color: var(--primary-color);
+}
+#main .left-side nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 8vh 0;
+}
+#main .left-side nav ul{
+   list-style: none;
+   width: 100%;
+   margin-top: 5vh;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#main .left-side nav ul a{
+   background-color: transparent;
+   width: 75%;
+   border-radius: 15px;
+   display: flex;
+   align-items: center;
+   color: white !important;
+   cursor: pointer;
+   transition: background .3s ease;
+   color: white;
+   font-family: "Poppins", sans-serif;
+   text-decoration: none;
+   font-weight: 600;
+   font-size: 1rem;
+   padding: 2vh 1vh;
+   margin: 1.2vh auto;
 }
 
-.App-link {
-  color: #61dafb;
+#main .left-side nav ul a .MuiSvgIcon-root {
+   font-size: 22px;
+   padding-right: 20px;
+   padding-left: 15px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+#main .left-side nav ul a:hover, #main .left-side nav ul a.active, #main .left-side nav ul a:active{
+   background-color: rgba(255, 255, 255, 0.517);
+}
+
+
+
+#main .left-side nav img {
+    width: 30px;
+}
+
+
+#main .right-side {
+    width: calc(100% - var(--width-left));
 }

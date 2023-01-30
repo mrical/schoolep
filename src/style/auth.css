@@ -1,0 +1,172 @@
+#auth {
+    width: 100%;
+    height: 100vh;
+}
+
+#auth .wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+#auth .left-side {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#auth .left-side .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 55%;
+}
+
+#auth .inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 4vh 0 1.5vh 0;
+}
+
+#auth input {
+    background-color: #F5F5F5;
+    border: 1px solid #E2E2E2;
+    outline: none;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color:  #898989;
+}
+
+#auth input::placeholder {
+    color: #898989;
+}
+
+#auth .logo {
+    margin-top: -5vh;
+}
+
+#auth .auth-title {
+    margin-top: 2vh;
+}
+
+#auth .ema-usr {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#auth .ema-usr input:nth-child(1), .ema-usr input:nth-child(2) {
+    width: 38.4%;
+}
+
+#auth .ema-usr input:nth-child(2) {
+    right: 0;
+    display: flex;
+    align-items: right;
+}
+
+#auth .auth-title {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.2rem;
+    line-height: 3.3rem;
+    color: #FF7A00;
+}
+
+#auth .auth-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    width: 90%;
+    font-size: 0.87rem;
+    line-height: 1.25rem;
+    color: #9A9A9A;
+    font-weight: 400;
+    text-align: center;
+}
+
+#auth .auth-forgot {
+    color: var(--primary-color);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-self: flex-end;
+}
+
+#auth .auth-btn {
+    width: 100%;
+    padding: 14px 0;
+    border: none;
+    background-color: var(--primary-color);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 8px;
+    margin-top: 4vh;
+    cursor: pointer;
+    transition: background .3s ease-in;
+}
+
+#auth .auth-btn:hover {
+    background-color:#ff7b00d5;
+}
+#auth .auth-btn:disabled {
+    background-color:#ff7b008d;
+    cursor:default;
+}
+
+
+#auth .auth-question {
+    color: #9A9A9A;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: flex;
+    align-self: flex-start;
+    margin-top: 1.5vh;
+}
+
+#auth .auth-question a {
+    margin-left: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#auth .password, .password-c{
+    width: 100%;
+    position: relative;
+}
+
+#auth .password input, .password-c input {
+    width: calc(100% - 40px)
+}
+
+#auth .password .psw-icon, .password-c .psw-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    font-size: 18px;
+    color: #818181;
+    cursor: pointer;
+}
+
+
+#auth .psw-icon.ani-icon {
+    animation: password_animation .3s ease forwards; 
+}
+
+@keyframes password_animation {
+    0% { transform: translate(6px, -50%); }
+    50% { transform: translate(-6px, -50%); }
+    100% { transform: translate(0px, -50%); }
+}
