@@ -12,7 +12,7 @@ import './index.css';
 
 //importovane pages (stranky)
 import Home from './pages/Home/Home';
-import HelpBOT from './pages/HelpBOT/HelpBOT';
+
 import Login from './pages/Login/Login';
 import Settings from './pages/Settings/Settings';
 import Signup from './pages/Signup/Signup';
@@ -23,6 +23,7 @@ import Notes from './pages/Notes/Notes';
 import AllNotes from './pages/Notes/AllNotes/AllNotes';
 import CreateNote from './pages/Notes/Create/CreateNote';
 import Folder from './pages/Notes/Folder/Folder';
+import SchoolepAI from './pages/SchoolepAI/SchoolepAI';
 
 
 
@@ -45,10 +46,10 @@ const router = createBrowserRouter([
     </PrivateRoute>,
   },
   {
-    path: "/helpbot",
+    path: "/schoolepai",
     element: <PrivateRoute>
       <App>
-        <HelpBOT />
+        <SchoolepAI />
       </App>
     </PrivateRoute>,
   },

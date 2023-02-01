@@ -62,9 +62,9 @@ const App = ({children}) => {
                     <AutoAwesomeMotion  />
                     Poznámky
                   </Link>
-                  <Link to="/helpbot" className={path === "/helpbot" ? "active" : null}>
+                  <Link to="/schoolepai" className={path === "/schoolepai" ? "active" : null}>
                     <SmartToyIcon />
-                    HelpBOT
+                    SchoolepAI
                   </Link>
                   <Link to="/settings" className={path === "/settings" ? "active" : null}>
                     <SettingsIcon />
