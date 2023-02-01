@@ -39,3 +39,9 @@
     margin-top: 7rem;
     width: 20vw;
 }
+
+@media (max-width: 1000px) {
+    .auth-right-side {
+        display: none;
+    }
+}

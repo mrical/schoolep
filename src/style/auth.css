@@ -17,13 +17,28 @@
     align-items: center;
 }
 
+
 #auth .left-side .content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 55%;
+    width: 400px;
 }
+@media (max-width: 1200px) {
+    #auth .left-side .content {
+        width: 400px
+    }
+}
+@media (max-width: 1000px) {
+    #auth .left-side {
+        width: 100%;
+    }
+    #auth .left-side .content {
+        width: 400px
+    }
+}
+
 
 #auth .inputs {
     display: flex;
@@ -31,6 +46,7 @@
     width: 100%;
     margin: 4vh 0 1.5vh 0;
 }
+
 
 #auth input {
     background-color: #F5F5F5;
@@ -142,7 +158,7 @@
 }
 
 #auth .password, .password-c{
-    width: 100%;
+    width: 100% !important;
     position: relative;
 }
 
@@ -169,4 +185,27 @@
     0% { transform: translate(6px, -50%); }
     50% { transform: translate(-6px, -50%); }
     100% { transform: translate(0px, -50%); }
+}
+
+
+@media (max-width: 500px) {
+    #auth .left-side .content {
+        width: 90%
+    }
+    #auth .inputs {
+        width: 100%;
+    }   
+    #auth .ema-usr  {
+       width: 100%;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+    }
+    #auth .ema-usr input:nth-child(1) {
+       width: 50%;
+       margin-right: 10px;
+    }
+    #auth .ema-usr input:nth-child(2) {
+       width: 50%;
+    }
 }
