@@ -131,3 +131,38 @@
 }
 
 
+@media (max-width: 1100px) {
+    #schoolep-ai {
+        height: 90vh;
+     }
+     #schoolep-ai .input-message {
+        width: 90%;
+    }
+    .bot-ai {
+        width: 60px;
+    }
+    #schoolep-ai .titles h2 {
+        font-size: 1.8rem;
+    }
+    #schoolep-ai .titles p {
+        font-size: .8rem;
+        width: 90%;
+    }
+    #schoolep-ai .response {
+        font-size: .8rem;
+        max-width: 82%;
+        max-height: 350px;
+    }
+    #schoolep-ai .choose-section {
+        height: 100%;
+    }
+    #schoolep-ai .titles {
+        height: 30%;
+    }
+    #schoolep-ai .response-content {
+        height: 65%;
+    }
+    #schoolep-ai .input-content {
+        height: 15%;
+    }
+}

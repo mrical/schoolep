@@ -16,7 +16,7 @@ const SchoolepAI = () => {
 
     setSendMessage(true)
 
-    fetch("http://localhost:3001/", {
+    fetch("http://localhost:3001", {
       method: "POST",
       headers: { 
         "Content-Type": "application/json"
@@ -57,6 +57,7 @@ const SchoolepAI = () => {
   
   
   useEffect(() => {
+    document.getElementById("menu").classList.remove("left-menu")
     }, [])
 
   return (

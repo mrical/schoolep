@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
+  createHashRouter, Navigate, RouterProvider,
 } from "react-router-dom";
 import App from './App';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import ErrorPage from './error-page';
 import './index.css';
+
+
 
 //importovane pages (stranky)
 import Home from './pages/Home/Home';
@@ -24,10 +24,12 @@ import AllNotes from './pages/Notes/AllNotes/AllNotes';
 import CreateNote from './pages/Notes/Create/CreateNote';
 import Folder from './pages/Notes/Folder/Folder';
 import SchoolepAI from './pages/SchoolepAI/SchoolepAI';
+import Call from './pages/Call/Call';
 
 
 
-const router = createBrowserRouter([
+
+const router = createHashRouter([
   {
     path: "/",
     element: <PrivateRoute>
@@ -104,6 +106,17 @@ const router = createBrowserRouter([
     </PrivateRoute>,
   },
   {
+    path: "/room/:id",
+    element: 
+    <PrivateRoute>
+    <App>
+      <Notes>
+        <Call />
+      </Notes>
+    </App>
+  </PrivateRoute>
+  },
+  {
     path: "/login",
     element: <Login />
   }, 
@@ -116,7 +129,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-    <RouterProvider router={router} />
+       <RouterProvider router={router} />
     </AuthProvider>
   </React.StrictMode>
 );

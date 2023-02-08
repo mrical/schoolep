@@ -43,7 +43,7 @@ const Settings = () => {
 
   useEffect(() => {
     getUser()
-    
+    document.getElementById("menu").classList.remove("left-menu")
   }, [])
 
   const handlerUploadImg = () => {

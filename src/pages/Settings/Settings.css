@@ -249,3 +249,17 @@ align-items: center;
 .file_input_img {
    display: none;
 }
+
+@media (max-width: 1100px) {
+   #settings {
+      height: 100%;
+   } 
+   #settings .wrapper-settings .content img {
+      width: 100px;
+      height: 100px;
+   }
+   #settings .wrapper-settings .content .edit-image {
+      width: 100px;
+      height: 100px;
+  }
+}

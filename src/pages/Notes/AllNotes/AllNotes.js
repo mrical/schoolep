@@ -119,10 +119,10 @@ const AllNotes = () => {
       <div className='titles' >
           <AutoAwesomeMosaic  className='titles-icon'  />
           <h3>Priečinky</h3>
-             { !createNewFolder && <Add onClick={() => {setCreateNewFolder(!createNewFolder)}} className='create-icon' />}
-             { createNewFolder && <Remove onClick={() => {setCreateNewFolder(!createNewFolder)}} className='create-icon' />}
+             { !createNewFolder && <Add onClick={() => {setCreateNewFolder(!createNewFolder)}} className='create-folder' />}
+             { createNewFolder && <Remove onClick={() => {setCreateNewFolder(!createNewFolder)}} className='create-folder' />}
             {createNewFolder &&
-                <div>
+                <div className='input-for-create-folder' >
                     <input className='input-for-folder' onChange={(e) => {setFolderName(e.target.value)}} placeholder='Nazov priečinku..' />
                     <button  onClick={handleAddFolder} className='add-folder' >Pridať</button>
                 </div>

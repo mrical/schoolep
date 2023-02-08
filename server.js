@@ -32,7 +32,7 @@ app.post("/", async(req, res) => {
         Ja: Ja som človek, ktorý sa pyta na rozne veci
 
         Ja: Čo je to ryba ?
-        Ty: Ryba je živočíšne druh, ktorý žije v vodnom prostredí a jeho telo je pokryté šupinami. Mnoho druhov rýb sa vyskytuje vo vode, ako sú rieky, jazerá, moria a oceány. Ryby sú dôležitým zdrojom potravy pre ľudí a sú tiež dôležité pre ekosystém vodných biotopov.
+        Ty: Ryba je živočíšne druh, ktorý žije vo vodnom prostredí a jeho telo je pokryté šupinami. Mnoho druhov rýb sa vyskytuje vo vode, ako sú rieky, jazerá, moria a oceány. Ryby sú dôležitým zdrojom potravy pre ľudí a sú tiež dôležité pre ekosystém vodných biotopov.
 
         Ja: ${message}, ., ?, !,
         Ty: 

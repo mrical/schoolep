@@ -12,15 +12,16 @@
     align-items: center;
     justify-content: center;
 }
-#chat .left-side {
+#chat .left-side-friends {
     width: 25%;
     height: 100%;
 }
 
+
 #chat .friends-searched {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 85%;
+    height: calc(100% - 100px);
 }
 
 #chat .friends-searched::-webkit-scrollbar {
@@ -50,12 +51,12 @@
 #chat .white-box {
     height: 95%;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 15px;
 }
 
 #chat .search {
     width: 100%;
-    height: 12%;
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -349,3 +350,97 @@
     color: #fdca99;
     margin-top: 10px;
 }
+
+
+.chat-left {
+    color: var(--primary-color);
+    font-size: 1.5rem !important;
+    margin-left: 15px;
+    display: none !important ;
+}
+
+
+@media (max-width: 1100px) {
+    #chat .left-side-friends {
+        width: 400px;
+        z-index: 20;
+    }
+    #chat .r-messages {
+        width: 0%;
+        display: none;
+        z-index: 20;
+    }
+    #chat .search-input {
+        width: 95%;
+    }
+    #chat .friend {
+        width: 90%;
+    }
+    #chat .friend .wrapper{
+        width: 70%;
+    }
+    .show-chat {
+        display: block !important;
+        width: 80% !important;
+    }
+    .show-friends {
+        display: block !important;
+        width: 400px!important;
+    }
+    .hide-friends {
+        display: none !important;
+        width: 0% !important;
+    }
+    .hide-chat {
+        display: none !important;
+        width: 0% !important;
+    }
+    #chat {
+        height: 100%;
+    }
+    .chat-left {
+        display: block !important;
+    }
+    #chat-wrapper .top-bar img {
+        margin-left: 15px;
+        width: 35px;
+        height: 35px;
+    }
+    #chat-wrapper .top-bar h3 { 
+        font-size: .8rem;
+    }
+    #chat-wrapper .bottom-bar .send-message input {
+        width: 70%;
+    }
+    #chat .right-side {
+        margin-left: 0;
+    }
+}
+@media (max-width: 500px) {
+    #chat .left-side-friends {
+        width: 90%;
+        z-index: 20;
+    }
+    .show-chat {
+        display: block !important;
+        width: 90% !important;
+    }
+    .show-friends {
+        display: block !important;
+        width: 90%!important;
+    }
+    .hide-friends {
+        display: none !important;
+        width: 0% !important;
+    }
+    .hide-chat {
+        display: none !important;
+        width: 0% !important;
+    }
+    #chat .friend .wrapper{
+        width: 90%;
+    }
+}
+
+
+

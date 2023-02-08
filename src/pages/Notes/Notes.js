@@ -30,6 +30,9 @@ const Notes = ({children}) => {
 
 
 
+  useEffect(() => {
+    document.getElementById("menu").classList.remove("left-menu")
+  }, [])
 
 
 

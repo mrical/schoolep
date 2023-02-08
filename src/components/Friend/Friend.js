@@ -19,19 +19,15 @@ const Friend = (props) => {
 
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 1000)
+   
   }, [])
 
   useEffect(() => {
-    if(!loading) {
       props.allUsers.filter((f) => {
         return f.id === props.friend.id
       }).map((f) => {
         setFriend(f)
       })
-    }
   }, [loading])
 
 
@@ -51,7 +47,7 @@ const Friend = (props) => {
   return (
     <>
     
-    { !loading && friend &&
+    { friend &&
 
     <div className={props.friend.id === props.activeFriend ? 'friend active' : "friend" } 
     onClick={() => {

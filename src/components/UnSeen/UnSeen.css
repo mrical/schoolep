@@ -1,0 +1,36 @@
+.unseen {
+   display: inline-flex;
+   flex-direction: column;
+   align-items: center;
+   font-family: "Poppins", sans-serif;
+   position: relative;
+   cursor: pointer;
+   margin-right: 20px;
+}
+.unseen img{
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+.unseen .img-wrp{
+  width: 60px;
+  height: 60px;
+  position: relative;
+}
+.unseen .img-wrp::after{
+   content: "";
+   position: absolute;
+   top: 3px;
+   right: 3px;
+   width: 10px;
+   border-radius: 50%;
+   border: 2px solid white;
+   height: 10px;
+   background-color: var(--primary-color);
+}
+.unseen h3{
+    color: var(--primary-color);
+    font-weight: 400;
+    font-size: .8rem;
+    margin-top: 10px;
+}

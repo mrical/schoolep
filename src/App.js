@@ -7,21 +7,43 @@ import HomeIcon from '@mui/icons-material/Home';
 import ChatIcon from '@mui/icons-material/Chat';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { AutoAwesomeMotion, ListAltSharp, Notes } from '@mui/icons-material'
-import { List } from '@mui/material'
+import { ArrowBack, ArrowForward, ArrowRight, AutoAwesomeMotion, ListAltSharp, Logout, MenuBook, Notes } from '@mui/icons-material'
+import { List, Menu, MenuList } from '@mui/material'
 import { rdb } from './firebase'
-import { OnDisconnect, onDisconnect, ref, remove, set } from 'firebase/database'
+import { OnDisconnect, onDisconnect, onValue, ref, remove, set } from 'firebase/database'
 import { useAuth } from './context/AuthContext'
+import MenuIcon from '@mui/icons-material/Menu';
+
 
 const App = ({children}) => {
 
 
   const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(true)
 
   let location = useLocation();
   let path = location.pathname
 
-  const { currentUser } = useAuth()
+  const { currentUser, logout} = useAuth()
+
+  const handleLogout = async() => {
+
+    try{
+      await logout()
+        
+    }catch(err) {
+      console.log(err)
+    }
+
+  }
+
+  const getUser = () => {
+        const starCountRef = ref(rdb, `users/${currentUser.uid}`);
+          onValue(starCountRef, (snapshot) => {
+          const data = snapshot.val();
+          setUser(data);
+        });
+  }
 
   useEffect(() => {
   
@@ -32,11 +54,13 @@ const App = ({children}) => {
    
 
       const reference = ref(rdb,`/online/${currentUser.uid}/`);
-
+    
 
       set(reference, true).then(() => {
         console.log("online")
       })
+
+      getUser()
 
 
   }, [])
@@ -46,7 +70,8 @@ const App = ({children}) => {
     { !loading ? 
       <div id="main" >
 
-            <div className='navbar left-side ' >
+            <div className='navbar left-side ' id='menu' >
+              <ArrowBack onClick={() => document.getElementById("menu").classList.remove("left-menu")} className='arrow-back-mobile' />
               <nav>
                 <img src={logo} alt="logo" />
                 <ul>
@@ -72,10 +97,25 @@ const App = ({children}) => {
                   </Link>
                 </ul>
               </nav>
+                <div className='logout'  onClick={handleLogout} >
+                  <Logout className='icon' />
+                  <h4>Odlásiť sa</h4>
+                </div>
             </div>
 
           <div className='right-side' >
-            {children}
+            <div className='mobile_top_bar' >
+                { user && 
+              <div className='profile' >
+                <img src={user.profilePic} />
+                <h3>{user.username}</h3>
+              </div>
+                }
+              <MenuIcon onClick={() => document.getElementById("menu").classList.add("left-menu")} className='menu-bar-icon' />
+            </div>
+            <div id='children' >
+              {children}
+            </div>
           </div>
 
       </div> : <Loading />

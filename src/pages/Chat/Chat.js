@@ -1,4 +1,4 @@
-import { MoreVert, Search, Send } from '@mui/icons-material'
+import { ArrowBack, Call, MoreVert, Search, Send } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 import "./Chat.css"
 import { doc, getDoc, onSnapshot, orderBy, query, setDoc, updateDoc } from "firebase/firestore";
@@ -9,6 +9,8 @@ import Friend from '../../components/Friend/Friend';
 import { child, get, getDatabase, onValue, orderByChild, push, ref, remove, set } from 'firebase/database';
 import { async } from '@firebase/util';
 import { OptionGroupUnstyled } from '@mui/base';
+import { act } from 'react-dom/test-utils';
+import { Link } from 'react-router-dom';
 
 const Chat = () => {
   
@@ -229,6 +231,7 @@ const Chat = () => {
     setTimeout(() => {
       setLoading(false)
     }, 1000)
+    document.getElementById("menu").classList.remove("left-menu")
   }, [])
 
   useEffect(() => {
@@ -329,15 +332,38 @@ const Chat = () => {
   }
 
 
+  useEffect(() => {
+    let friends = document.getElementById("friends")
+    let chat = document.getElementById("messages")
+    if(activeFriend && document.body.clientWidth < 1100) {
 
+      friends.classList.add("hide-friends")
+      chat.classList.add("show-chat")
+    
+      console.log(chat, friends)
+
+    } 
+
+    if(!activeFriend && document.body.clientWidth < 1100) {
+      friends.classList.remove("hide-friends")
+   
+      chat.classList.remove("show-chat")
+    }
+
+
+  }, [activeFriend])
   
+
+  const handleCall = () => {
+    set(ref(rdb, 'users/' + currentUser.uid + "/call/" + activeFriend), true);
+  }
 
 
 
   return (
     <div id="chat" >
       <div className='wrapper-chat' >
-        <div className='left-side friends white-box' >
+        <div className='left-side-friends friends white-box' id='friends' >
             <div className='search' >
               <div className='search-input' >
                   <Search />
@@ -395,14 +421,22 @@ const Chat = () => {
             <div id="chat-wrapper" >
               <div className='top-bar'>
                   <div className='wrapper' >
+                    <ArrowBack className='chat-left' onClick={() => {
+                      setActiveFriend()
+                      setDataActiveFriend();
+                    }} />
                     <img src={dataActiveFriend.profilePic} />
                     <h3>{dataActiveFriend.username}</h3>
                   </div>
+                 
                   {deleteSection &&
                   <div onClick={handleDeleteChat} className='delete-section' >
                     <a>Delete</a>
                   </div> }
-                  <MoreVert className='more-top' onClick={() => setDeleteSection(!deleteSection)} />
+                  <div>
+                    <Call onClick={handleCall} className='more-top' activeFriend={activeFriend}  />
+                    <MoreVert className='more-top' onClick={() => setDeleteSection(!deleteSection)} />
+                  </div>
               </div>
               <div id="chat-center" className='center-bar messages' >
 
