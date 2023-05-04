@@ -14,8 +14,7 @@ const Settings = () => {
 
   const [user, setUser] = useState()
   const [username, setUsername] = useState()
-  const [password, setPassword] = useState()
-  const [passwordConfirm, setPasswordConfirm] = useState()
+
 
   const [editUsername, setEditUsername] = useState(false)
 
@@ -32,6 +31,7 @@ const Settings = () => {
   const passwordRef = useRef()
   const passwordConRef = useRef()
     
+  //dostane info o uzivatelovi
   const getUser = () => {
     const starCountRef = ref(rdb, `users/${currentUser.uid}`);
     onValue(starCountRef, (snapshot) => {
@@ -46,6 +46,7 @@ const Settings = () => {
     document.getElementById("menu").classList.remove("left-menu")
   }, [])
 
+  //otvori subory v pocitaci kde su obrazky
   const handlerUploadImg = () => {
         
     const fileSelector = document.querySelector('.file_input_img');
@@ -54,7 +55,7 @@ const Settings = () => {
 
 }
 
-/* Pick Image in Message */
+/* Vyberie obrazok na zmenu profilovky*/
 const handlerChangeInputImg = (e) => {
   let fileImg = e.target.files[0];
   if(fileImg) {
@@ -70,6 +71,7 @@ const handlerChangeInputImg = (e) => {
 
 }
 
+//vsetky zmeny ulozi do firebase realtime databazy
 const handleSave = async() => {
   if(fileImg) {
 
@@ -99,58 +101,17 @@ const handleSave = async() => {
   }else if(passwordConRef.current.value.length > 5 && passwordConRef.current.value !== passwordRef.current.value ) {
     alert("nove heslo sa nezhoduje s potvrdenim hesla !")
   }
-
-
-    /*.put(filImg).then(() => {
-      sdb
-    .ref("users")
-    .child(currentUser.uid + "/profile-picture/" + filImg.name).getDownloadURL().then((url) => {
-       db.collection("users").doc(currentUser.uid).update({
-           profilePic: url
-       })
-     })
-    })
-    setChoose("") */
   
   setFilImg(null)
   setFileImg(null)
 
+  
   navigation("/")
 
 }
 
 
   return (
-
-    /*
-    <div id="settings" >
-      <div className='wrapper-settigns' >
-        <div className='titles' >
-            <h2>Nastavenia</h2>
-        </div>
-        {user && 
-        <div className='content' >
-          <img src={user.profilePic} />
-          <p >{user.email}</p>
-          <div className='wrapper' >
-          <div className='username' >
-            <h4>Zmena použivatelského mena</h4>
-            <input placeholder="Username" value={username} />
-            <button>Zmenit username</button>
-          </div>
-          
-          <div className='password' >   
-            <h4>Zmena hesla</h4>
-            <input placeholder='new password'  />
-            <input placeholder='new confirm password' />
-            <button>Zmenit heslo</button>
-          </div>
-          </div>
-        </div>
-        }
-      </div>
-    </div> */
-
         <>
           {user && <div id="settings" >
           <input type="file" className="file_input_img" accept="image/png, image/gif, image/jpeg" onChange={handlerChangeInputImg} />

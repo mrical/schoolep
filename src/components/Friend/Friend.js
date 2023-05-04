@@ -55,7 +55,10 @@ const Friend = (props) => {
         props.setSearchFriend("")
     }} >
         <div className='wrapper' >
-        <img src={friend.profilePic || "https://i.postimg.cc/zfP6Tk3W/profile-pic-default.png"} />
+          <div className='img-mood' >
+            <img src={friend.profilePic || "https://i.postimg.cc/zfP6Tk3W/profile-pic-default.png"} />
+            <span>{friend.mood}</span>
+          </div>
             <div className='right-side' >
                 <h4>{friend.username}</h4>
                 {props.friend.message && <p  className={props.friend.saw ? "null" : "saw_false"} >{props.friend.toId === friend.id ? props.friend.message.length > 25 ? "Ja: " + props.friend.message.substr(0, 25) + "..." : "Ja: " + props.friend.message : props.friend.message.length > 25 ? props.friend.message.substr(0, 25) + "..." : props.friend.message}</p>}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./SchoolepAI.css"
 import bot from "../../assets/bot.svg"
-import { Close, HourglassBottom, Repeat, Replay, Save, Send } from '@mui/icons-material'
+import { HourglassBottom, Replay, Save, Send } from '@mui/icons-material'
 
 const SchoolepAI = () => {
 
@@ -10,13 +10,17 @@ const SchoolepAI = () => {
   const [responseText, setResponseText] = useState()
   const [sendMessage, setSendMessage] = useState(false)
 
+  //ziskanie odpovedi
   const handleSubmit = (e) => {
 
     document.getElementById("bot").classList.add("up_down")
 
     setSendMessage(true)
 
-    fetch("http://localhost:3001", {
+    //fetchuje (zsikava) data s nasho serveru ktory sme nahrali na online server Cyclic https://defiant-tuna-pinafore.cyclic.app
+    //zdrojovi kod nasho node serveru je v src/server.js
+
+    fetch("https://defiant-tuna-pinafore.cyclic.app/", {
       method: "POST",
       headers: { 
         "Content-Type": "application/json"
@@ -28,6 +32,7 @@ const SchoolepAI = () => {
 
     }
 
+    //odpoved pise postupne v takej mensej animacii 
     const  showTextLetterByLetter = (text, speed) => {
       let i = 0;
       let output = document.getElementById("response");
@@ -58,20 +63,13 @@ const SchoolepAI = () => {
   
   useEffect(() => {
     document.getElementById("menu").classList.remove("left-menu")
+    document.body.style.overflow="visible"
     }, [])
 
   return (
     <>
 
       <div id="schoolep-ai" >
-        {/*
-        <form onSubmit={handleSubmit} >
-            <textarea value={message} onChange={((e) => setMessage(e.target.value))} ></textarea>
-            <button type='submit' >SUBMIT</button>
-        </form>
-        <div>{response}</div>
-        */}
-
         <div className='choose-section' >
 
           <div className='titles' >

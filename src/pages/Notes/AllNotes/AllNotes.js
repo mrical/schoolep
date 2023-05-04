@@ -18,6 +18,7 @@ const AllNotes = () => {
 
     const [createNewFolder, setCreateNewFolder] = useState(false)
 
+    //dostanes vsetky poznamky pouzivatela
     const getNotes = () => {
         const starCountRef = ref(rdb, `notes/${currentUser.uid}/all/`);
         onValue(starCountRef, (snapshot) => {
@@ -26,6 +27,7 @@ const AllNotes = () => {
         });
     }
 
+    //dostanes vsetky priecinky pouzivatela
     const getFolders = () => {
 
         const starCountRef = ref(rdb, `notes/${currentUser.uid}/folders`);
@@ -36,11 +38,13 @@ const AllNotes = () => {
 
     }
     
+    //po nacitani dostanes
     useEffect(() => {
         getNotes()
         getFolders()
     }, [])
     
+
     useEffect(() => {
 
         let array = []
@@ -54,6 +58,7 @@ const AllNotes = () => {
          }
     
       }, [notes])
+
 
     useEffect(() => {
 
@@ -70,6 +75,7 @@ const AllNotes = () => {
       }, [folders])
     
 
+    //pridat novy priecinok
     const handleAddFolder = () => {
 
         if(folderName.length > 2) {

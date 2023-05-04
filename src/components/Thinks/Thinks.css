@@ -1,0 +1,85 @@
+.thinkers {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5rem;
+}
+.thinkers .titles{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.thinkers .titles .icon{
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+.thinks-wrp {
+    display: flex;
+    width: 50%;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y:hidden ;
+    padding: 10px 15px;
+}
+.thinks-wrp::-webkit-scrollbar {
+    display: none;
+}
+.thinks-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+.thinks {
+    width: 100px;
+    height: 150px;
+    position: relative;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.thinks img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.thinks .img-wrp {
+    width: 100%;
+    position: relative;
+}
+
+.thinks p {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: inline;
+    width: 100%;
+    font-size: .7rem;
+    background-color: var(--primary-color);
+    color: white;
+    font-family: "Poppins", sans-serif;
+    border-radius: 10px;
+    padding: 3px 8px;
+}
+.thinkers h4 {
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    margin-right: 10px;
+}
+.thinkers h5 {
+    font-size: .9rem;
+    color: var(--primary-color);
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 10px;
+}

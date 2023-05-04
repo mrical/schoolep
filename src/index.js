@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
-  createHashRouter, Navigate, RouterProvider,
+  createHashRouter, RouterProvider,
 } from "react-router-dom";
 import App from './App';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import ErrorPage from './error-page';
 import './index.css';
 
@@ -12,8 +12,8 @@ import './index.css';
 
 //importovane pages (stranky)
 import Home from './pages/Home/Home';
-
 import Login from './pages/Login/Login';
+import Forgot from './pages/Forgot/Forgot';
 import Settings from './pages/Settings/Settings';
 import Signup from './pages/Signup/Signup';
 import PrivateRoute from './PrivateRoute';
@@ -24,10 +24,11 @@ import AllNotes from './pages/Notes/AllNotes/AllNotes';
 import CreateNote from './pages/Notes/Create/CreateNote';
 import Folder from './pages/Notes/Folder/Folder';
 import SchoolepAI from './pages/SchoolepAI/SchoolepAI';
-import Call from './pages/Call/Call';
 
 
 
+
+//Cesty stranky ---- / (routes),,,, je tam hashRouter #
 
 const router = createHashRouter([
   {
@@ -106,23 +107,16 @@ const router = createHashRouter([
     </PrivateRoute>,
   },
   {
-    path: "/room/:id",
-    element: 
-    <PrivateRoute>
-    <App>
-      <Notes>
-        <Call />
-      </Notes>
-    </App>
-  </PrivateRoute>
-  },
-  {
     path: "/login",
     element: <Login />
   }, 
   {
     path: "/signup",
     element: <Signup />
+  },
+  {
+    path: "/forgot",
+    element: <Forgot />
   }
 ]);
 

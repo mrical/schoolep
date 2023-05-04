@@ -27,19 +27,28 @@ const Signup = () => {
     const passwordConRef = useRef()
 
 
+    //zmeni title
     useEffect(() => {
       document.title = "Schoolep - vytvoriť učet"
     }, [])
     
 
+
+    //vytvorenie uctu
     const handleSignup = async() => {
 
+
+    
+
       try {
-        if(passwordConRef.current.value === passwordRef.current.value) {
+        if(passwordConRef.current.value === passwordRef.current.value && passwordRef.current.value.length > 5) {
           setLoading(true)
           await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value)
             .then(() => setTimeout(() => {navigate("/")}, 1000))
-        }else {
+        }else if(passwordRef.current.value.length < 5){
+          setError("Heslo musi obsahovať viac než 6 znakov")
+        }
+        else{
           document.querySelector(".password .psw-icon").classList.add("ani-icon")
           document.querySelector(".password-c .psw-icon").classList.add("ani-icon")
           setError("Heslo sa nezhoduje s potvrdzujucím heslom, skotrolujte poriadne a skuste znova")

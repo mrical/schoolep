@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useAuth } from '../../context/AuthContext'
 
 import "./UnSeen.css"
 
 const UnSeen = (props) => {
-
-    const { currentUser } = useAuth()
 
 
     const [friend, setFriend] = useState()
@@ -28,7 +25,7 @@ const UnSeen = (props) => {
     <>
        {
 
-        friend && 
+       friend && 
 
         <div className='unseen' >
             <div className='img-wrp' >
@@ -38,11 +35,7 @@ const UnSeen = (props) => {
         </div>
 
        }
-       {
-
-        !friend && <p>Nooo new messages</p>
-
-       }
+       
     </>
   )
 }

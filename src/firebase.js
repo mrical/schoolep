@@ -1,4 +1,4 @@
-// Import the functions you need from the SDKs you need
+// importovane funkcie firebase na inicializovanie 
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
@@ -16,7 +16,7 @@ const firebaseConfig = {
   databaseURL: "https://schoolep-67cf5-default-rtdb.firebaseio.com/",
 };
 
-// Initialize Firebase
+//vykonanie funkcii na inicializovanie
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const rdb = getDatabase(app);

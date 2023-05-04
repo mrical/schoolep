@@ -1,4 +1,4 @@
-import { ArrowBack, Call, MoreVert, Search, Send } from '@mui/icons-material'
+import { ArrowBack, ArrowForward, Call, MoreVert, Search, Send } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 import "./Chat.css"
 import { doc, getDoc, onSnapshot, orderBy, query, setDoc, updateDoc } from "firebase/firestore";
@@ -11,6 +11,7 @@ import { async } from '@firebase/util';
 import { OptionGroupUnstyled } from '@mui/base';
 import { act } from 'react-dom/test-utils';
 import { Link } from 'react-router-dom';
+import Thinks from '../../components/Thinks/Thinks';
 
 const Chat = () => {
   
@@ -354,10 +355,28 @@ const Chat = () => {
   }, [activeFriend])
   
 
-  const handleCall = () => {
-    set(ref(rdb, 'users/' + currentUser.uid + "/call/" + activeFriend), true);
+   
+  const thinks = document.getElementById("thinks")
+
+
+  const handleMoveRight = () => {
+    thinks.scroll({
+        left: thinks.scrollLeft + 200,
+        behavior: "smooth"
+      })
   }
 
+
+  const handleMoveLeft = () => {
+    thinks.scroll({
+      left: thinks.scrollLeft - 200,
+      behavior: "smooth"
+    })
+  }
+
+
+
+ 
 
 
   return (
@@ -434,7 +453,6 @@ const Chat = () => {
                     <a>Delete</a>
                   </div> }
                   <div>
-                    <Call onClick={handleCall} className='more-top' activeFriend={activeFriend}  />
                     <MoreVert className='more-top' onClick={() => setDeleteSection(!deleteSection)} />
                   </div>
               </div>
@@ -462,9 +480,44 @@ const Chat = () => {
             {!activeFriend && !dataActiveFriend && userData && 
 
              <div className='starter-chat' >
-              <img src={userData.profilePic} />
-              <h3>{userData.username}</h3>
-              <p>Začnite chatovať so svojimi priateľmi</p>
+              <div className='profile'  >
+                <img className='st' src={userData.profilePic} />
+                <h3>{userData.username}</h3>
+                <p className='st' >Začnite chatovať so svojimi priateľmi</p>
+              </div>
+              {
+ 
+              friends &&
+              
+              <div className='thinkers' >
+                <div className='titles' >
+                  <h4>Myšlienky priatelov</h4>
+                  <ArrowBack className='icon' onClick={handleMoveLeft} />
+                  <ArrowForward className='icon' onClick={handleMoveRight} />
+                </div>
+                <div className='thinks-wrp' id='thinks' >
+                  <div className='thinks-content' >
+                    {friends && users && 
+
+
+                      
+
+                      allFriends.map((u) => (
+
+                        allUsers.filter((f) => {
+                          return f.id === u.id
+                        }).map((u) => (
+                          <Thinks setActiveFriend={setActiveFriend} user={u} />
+                        ))
+
+                      ))
+
+
+                    }
+                  </div>
+                </div>
+              </div>
+            }
              </div>
               
            }

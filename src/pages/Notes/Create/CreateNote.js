@@ -42,6 +42,7 @@ const CreateNote = () => {
     }, [quill])
 
 
+    //dostat vsetky priecinky 
     const getFolders = () => {
 
         const starCountRef = ref(rdb, `notes/${currentUser.uid}/folders/`);

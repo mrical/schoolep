@@ -12,7 +12,17 @@
 #main .left-side {
     width: var(--width-left);
     height: 100%;
+    background-color: #FEEDDD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#main .wrapper-navbar {
+    width: 94%;
+    height: 97%;
     background-color: var(--primary-color);
+    position: relative;
+    border-radius: 15px;
 }
 #main .left-side nav{
     display: flex;

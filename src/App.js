@@ -7,10 +7,9 @@ import HomeIcon from '@mui/icons-material/Home';
 import ChatIcon from '@mui/icons-material/Chat';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { ArrowBack, ArrowForward, ArrowRight, AutoAwesomeMotion, ListAltSharp, Logout, MenuBook, Notes } from '@mui/icons-material'
-import { List, Menu, MenuList } from '@mui/material'
+import { ArrowBack, AutoAwesomeMotion, Logout } from '@mui/icons-material'
 import { rdb } from './firebase'
-import { OnDisconnect, onDisconnect, onValue, ref, remove, set } from 'firebase/database'
+import { onValue, ref } from 'firebase/database'
 import { useAuth } from './context/AuthContext'
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -26,6 +25,7 @@ const App = ({children}) => {
 
   const { currentUser, logout} = useAuth()
 
+  // odhlasenie  
   const handleLogout = async() => {
 
     try{
@@ -37,6 +37,7 @@ const App = ({children}) => {
 
   }
 
+  // dostať info o uživatelovi
   const getUser = () => {
         const starCountRef = ref(rdb, `users/${currentUser.uid}`);
           onValue(starCountRef, (snapshot) => {
@@ -45,20 +46,16 @@ const App = ({children}) => {
         });
   }
 
+
+
   useEffect(() => {
   
+    //zmeni title 
     setTimeout(() => {
       setLoading(false)
       document.title = "Schoolep"
     }, 1000)
    
-
-      const reference = ref(rdb,`/online/${currentUser.uid}/`);
-    
-
-      set(reference, true).then(() => {
-        console.log("online")
-      })
 
       getUser()
 
@@ -71,7 +68,8 @@ const App = ({children}) => {
       <div id="main" >
 
             <div className='navbar left-side ' id='menu' >
-              <ArrowBack onClick={() => document.getElementById("menu").classList.remove("left-menu")} className='arrow-back-mobile' />
+              <div className='wrapper-navbar' >
+              <ArrowBack onClick={() => {document.getElementById("menu").classList.remove("left-menu");  document.body.style.overflow="visible"}} className='arrow-back-mobile' />
               <nav>
                 <img src={logo} alt="logo" />
                 <ul>
@@ -101,6 +99,7 @@ const App = ({children}) => {
                   <Logout className='icon' />
                   <h4>Odlásiť sa</h4>
                 </div>
+              </div>
             </div>
 
           <div className='right-side' >
@@ -111,7 +110,7 @@ const App = ({children}) => {
                 <h3>{user.username}</h3>
               </div>
                 }
-              <MenuIcon onClick={() => document.getElementById("menu").classList.add("left-menu")} className='menu-bar-icon' />
+              <MenuIcon onClick={() => {document.getElementById("menu").classList.add("left-menu"); document.body.style.overflow="hidden"} } className='menu-bar-icon' />
             </div>
             <div id='children' >
               {children}

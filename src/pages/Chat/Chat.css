@@ -13,7 +13,7 @@
     justify-content: center;
 }
 #chat .left-side-friends {
-    width: 25%;
+    width: 27%;
     height: 100%;
 }
 
@@ -333,7 +333,13 @@
     flex-direction: column;
     height: 100%;
 }
-#chat .starter-chat img{
+#chat .starter-chat .profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#chat .starter-chat img.st{
     border-radius: 50%;
     width: 130px;
 }
@@ -344,7 +350,7 @@
     margin-top: 10px;
     letter-spacing: 3px;
 }
-#chat .starter-chat p{
+#chat .starter-chat p.st{
     font-size: 1rem;
     font-family: "Poppins", sans-serif;
     color: #fdca99;
@@ -444,3 +450,19 @@
 
 
 
+
+#chat .img-mood {
+    width: 50px;
+    height: 50px;
+    position: relative;
+}
+#chat .img-mood img {
+    width: 100%;
+    height: 100%;
+}
+#chat .img-mood span {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: .7rem;
+}

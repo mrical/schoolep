@@ -28,6 +28,7 @@ const Login = () => {
   }, [])
   
   
+  //prihlasenie 
   const handleLogin = async() => {
 
 
@@ -80,7 +81,7 @@ const Login = () => {
                   { !visiblePassword && <VisibilityOffIcon onClick={() => setVisiblePassword(true)} className='psw-icon' />}
                 </div>
               </div>
-              <a className='auth-forgot' >Zabudol si heslo ?</a>
+              <a className='auth-forgot' ><Link to="/forgot" className='primary-color' >Zabudol si heslo ?</Link></a>
               <button className='auth-btn' disabled={loading} onClick={handleLogin} >Prihlásiť sa</button>
               <a className='auth-question' >Ešte nemáš učet ?  <Link className='primary-color' to="/signup" >  Vytvoriť učet</Link></a>
             </div>

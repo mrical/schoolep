@@ -32,12 +32,14 @@ const Notes = ({children}) => {
 
   useEffect(() => {
     document.getElementById("menu").classList.remove("left-menu")
+    document.body.style.overflow="visible"
   }, [])
 
 
 
 
 
+  /*
   const handleCreateNote = () => {
 
     if(noteName.length > 2) {
@@ -59,7 +61,7 @@ const Notes = ({children}) => {
       alert("Error: no note name")
     }
 
-  }
+  } */
 
 
   return (

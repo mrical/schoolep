@@ -352,7 +352,6 @@
         grid-template-columns: repeat(4, 1fr);
     }
     #notes {
-        height: auto;
         padding: 20px 0;
     }
     #notes .editor {
@@ -367,7 +366,6 @@
         grid-template-columns: repeat(3, 1fr);
     }
     #notes {
-        height: auto;
         padding: 20px 0;
     }
     #notes .editor {
@@ -383,7 +381,6 @@
     }
     
     #notes {
-        height: auto;
         padding: 20px 0;
     }
     #notes .editor {

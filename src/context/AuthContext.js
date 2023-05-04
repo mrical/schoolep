@@ -1,7 +1,7 @@
 import React, {useContext, useState, useEffect} from "react"
 import { auth, db, sdb, rdb } from "../firebase.js";
 import app from "../firebase.js"
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword,  updatePassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword,  updatePassword, sendPasswordResetEmail } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; 
 import { useNavigate } from "react-router-dom";
 import { OnDisconnect, onDisconnect, ref, set } from "firebase/database";
@@ -25,18 +25,12 @@ export function AuthProvider({ children }) {
       .then(async (user) => {
 
         // Vytvori učet v db - firestore database, resp ho nastavi (setDoc) do documentu "users"
-        await setDoc(doc(db, "users", user.user.uid), {
-          username: username,
-          profilePic: "https://i.postimg.cc/zfP6Tk3W/profile-pic-default.png",
-          email: email,
-          id: user.user.uid,
-          createdAt: new Date() 
-        });      
         
         set(ref(rdb, 'users/' + user.user.uid), {
           username: username,
           profilePic: "https://i.postimg.cc/zfP6Tk3W/profile-pic-default.png",
           email: email,
+          mood: "🙂",
           id: user.user.uid,
           createdAt: new Date() 
         });
@@ -49,26 +43,19 @@ export function AuthProvider({ children }) {
    return signInWithEmailAndPassword(auth, email, password)
   }
 
-  function updateEmail(email) {
-    return currentUser.updateEmail(email);
-  }
 
+  //odhlasenie
   function logout() {
     return auth.signOut()
   }
 
+  //resetovanie hesla
   function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email)
+    return sendPasswordResetEmail(auth, email)
   }
 
 
-  function updateDisplayName(name) {
-    return currentUser.updateProfile({
-         displayName: name
-      })
-  }
-
-
+  //nove heslo
   function updateUserPassword(password) {
     return updatePassword(currentUser, password)
   }  
@@ -94,9 +81,7 @@ export function AuthProvider({ children }) {
     signup,
     logout,
     resetPassword,
-    updateEmail,
     updateUserPassword,
-    updateDisplayName, 
   }
 
   return(
