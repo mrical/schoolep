@@ -7,7 +7,7 @@ const Loading = () => {
 
     useEffect(() => {
       
-        document.title = "Schoolep - načitávam"
+        document.title = "Schoolep - loading"
       
     }, [])
     

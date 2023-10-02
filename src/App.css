@@ -77,6 +77,12 @@
 }
 
 
+.ul-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #main .right-side {
     width: calc(100% - var(--width-left));
 }
@@ -124,7 +130,7 @@
 
 .mobile_top_bar {
     width: 100%;
-    height: 10vh;
+    height: 5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -172,7 +178,8 @@
     }
     #main .left-side {
         width: 100%;
-        position: absolute;
+        height: 100%;
+        position: fixed;
         left: -100%;
         z-index: 100 !important;
     }
@@ -197,7 +204,212 @@
      .mobile_top_bar {
         display: inline-flex;
      }
+     #main .wrapper-navbar {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+    #children {
+        height: calc(100vh - 5rem);
+    }
 }
 
 
 
+#verify {
+    width: 100%;
+    height: 100vh;
+}
+
+#verify {
+    background-color: #fff5ec;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #FF7A00;
+    font-family: "Poppins", sans-serif;
+}
+#verify h2{
+   font-size: 2rem;
+   font-style: italic;
+}
+#verify p{
+   font-size: 1.1rem;
+   font-weight: 100;
+   margin-top: 2px;
+}
+#verify .primary-color{
+   font-weight: 500;
+}
+
+#verify .wrp {
+    width: 70%;
+}
+
+
+#verify button {
+    padding: 12px 0;
+    width: clamp(100px, 80%, 200px);
+    border: none;
+    background-color: var(--primary-color);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: min(.7rem, 2.5vw);
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .3s ease-in;
+    height: 50px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#verify .lgt {
+   margin-left: 10px;
+} 
+
+
+#verify button:hover {
+    background-color:#ff7b00d5;
+}
+#verify button:disabled {
+    background-color:#ff7b008d;
+    cursor:default;
+}
+#verify .emil {
+   text-decoration:underline ;
+}
+
+#verify .btn-loader {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border-bottom: 2px solid white;
+    animation: rot 1s ease infinite;
+}
+#verify .btn-wrp{
+    display: flex;
+    margin-top: 30px;
+}
+
+
+
+@media (max-height: 700px) {
+    #verify {
+        width: 100%;
+        height: 50rem;
+    }
+    #verify .wrp {
+        width: 80%;
+    }
+    
+    
+}
+
+@media (max-height: 500px) {
+    #verify {
+        width: 100%;
+        height: 60rem !important;
+    }
+    
+}
+
+
+@keyframes rot {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+#banned {
+    background-color: #fff5ec;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #FF7A00;
+    font-family: "Poppins", sans-serif;
+}
+
+#banned h2{
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-style: italic;
+ }
+#banned h3{
+    font-size: 2rem;
+    font-style: italic;
+    margin-top: 1rem;
+ }
+ #banned p{
+    font-size: 1.1rem;
+    font-weight: 100;
+ }
+ #banned .primary-color{
+    font-weight: 500;
+ }
+ 
+ #banned .wrp {
+     width: 50%;
+ }
+ 
+ 
+ #banned button {
+     padding: 12px 0;
+     width: clamp(100px, 80%, 200px);
+     border: none;
+     background-color: var(--primary-color);
+     font-family: 'Poppins', sans-serif;
+     color: white;
+     font-size: min(.7rem, 2.5vw);
+     font-weight: 700;
+     border-radius: 8px;
+     cursor: pointer;
+     transition: background .3s ease-in;
+     height: 50px !important;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin-top: 2rem;
+ }
+ 
+ #banned button:hover {
+    background-color:#ff7b00d5;
+}
+
+#banned a {
+    color: #FF7A00;
+    text-decoration: underline;
+}
+
+
+@media (max-height: 700px) {
+    #banned {
+        width: 100%;
+        height: 50rem;
+    }
+    #banned .wrp {
+        width: 80%;
+    }
+    
+    
+}
+
+@media (max-height: 500px) {
+    #banned {
+        width: 100%;
+        height: 60rem !important;
+    }
+    
+}

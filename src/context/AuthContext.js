@@ -1,79 +1,93 @@
-import React, {useContext, useState, useEffect} from "react"
-import { auth, db, sdb, rdb } from "../firebase.js";
-import app from "../firebase.js"
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword,  updatePassword, sendPasswordResetEmail } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; 
-import { useNavigate } from "react-router-dom";
-import { OnDisconnect, onDisconnect, ref, set } from "firebase/database";
+import React, { useContext, useState, useEffect } from "react";
+import { auth, db, rdb } from "../firebase.js";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updatePassword,
+  sendPasswordResetEmail,
+  sendEmailVerification,
+} from "firebase/auth";
+import { ref, set, update } from "firebase/database";
+import {
+  collection,
+  doc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 const AuthContext = React.createContext();
 
 export function useAuth() {
-  return useContext(AuthContext)
+  return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }) {
-
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-
- 
-  // VYTVORENIE UCTU - potrebny: email, password, username
-  async function signup(email, password, username) {
-      return createUserWithEmailAndPassword(auth, email, password)
-      .then(async (user) => {
-
-        // Vytvori učet v db - firestore database, resp ho nastavi (setDoc) do documentu "users"
-        
-        set(ref(rdb, 'users/' + user.user.uid), {
-          username: username,
-          profilePic: "https://i.postimg.cc/zfP6Tk3W/profile-pic-default.png",
-          email: email,
-          mood: "🙂",
-          id: user.user.uid,
-          createdAt: new Date() 
+  // VYTVORENIE UCTU - potrebny: email, password, name
+  async function signup(email, password, name) {
+    return createUserWithEmailAndPassword(auth, email, password).then(
+      async (user) => {
+        await sendEmailVerification(auth.currentUser).then(async () => {
+          setDoc(doc(db, "users/" + user.user.uid), {
+            name: name,
+            profilePic: "https://i.postimg.cc/zfP6Tk3W/profile-pic-default.png",
+            email: email,
+            mood: "🙂",
+            id: user.user.uid,
+            lastLogin: new Date().valueOf(),
+            verify: false,
+            ban: false,
+            block: false,
+            createdAt: new Date(),
+            userChatRequestCount: 0,
+          });
         });
-
-      })
+      }
+    );
   }
 
   // PRIHLASENIE - potrebny: email, password
-  async function login(email, password){
-   return signInWithEmailAndPassword(auth, email, password)
+  async function login(email, password) {
+    return signInWithEmailAndPassword(auth, email, password).then(
+      async (user) => {
+        updateDoc(doc(db, "users/" + user.user.uid), {
+          lastLogin: new Date().valueOf(),
+          verify: user.user.emailVerified,
+        });
+      }
+    );
   }
-
 
   //odhlasenie
   function logout() {
-    return auth.signOut()
+    return auth.signOut();
   }
 
   //resetovanie hesla
   function resetPassword(email) {
-    return sendPasswordResetEmail(auth, email)
+    return sendPasswordResetEmail(auth, email);
   }
 
+  function sendEmailVerify(currentUser) {
+    return sendEmailVerification(auth.currentUser);
+  }
 
   //nove heslo
   function updateUserPassword(password) {
-    return updatePassword(currentUser, password)
-  }  
+    return updatePassword(currentUser, password);
+  }
 
   useEffect(() => {
-   const unsubscribe = auth.onAuthStateChanged(user => {
-      setCurrentUser(user)
-      setLoading(false)
-    })
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
 
-
-    return unsubscribe
-
-
-  }, [])
-
-  
-
+    return unsubscribe;
+  }, []);
 
   const value = {
     currentUser,
@@ -82,12 +96,12 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updateUserPassword,
-  }
+    sendEmailVerify,
+  };
 
-  return(
+  return (
     <AuthContext.Provider value={value}>
       {!loading && children}
     </AuthContext.Provider>
-  )
+  );
 }
-

@@ -1,0 +1,272 @@
+#admin {
+    width: 100%;
+    height: 100vh;
+    background-color: #FEEDDD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Poppins",sans-serif;
+}
+
+#admin button {    
+    width: 100px;
+    padding: 10px 0;
+    border: none;
+    margin-left: 20px;
+    background-color: var(--primary-color);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .3s ease-in;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+#admin button:hover {
+    background-color:#ff7b00a6;
+}
+
+
+#admin .wrapper-admin {
+    width: 94.5%;
+    height: 95%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}   
+
+#admin .all_users  {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+#admin .all_users  .titles{
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#admin .all_users .content-users{
+    height: 70%;
+}
+#admin .all_users h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+#admin .all_users .content-users {
+    overflow: auto;
+}
+#admin .all_users .content-users .scrool-users {
+    overflow: auto;
+}
+
+#admin .all_users .user {
+   background-color: white;
+   margin:10px 0;
+   width: 90%;
+}
+
+#admin .filter {
+    display: flex;
+    align-items: center;
+}
+
+
+
+#admin .search-input {
+    width: 320px;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+    margin-left: 2rem;
+    border-radius: 15px;
+}
+#admin .search-input input{
+    width: 76%;
+    background-color:transparent;
+    padding: 12px 7px;
+    font-size: .8rem;
+    color: #FF7A00;
+    outline: none;
+    border: none;
+}
+#admin .search-input input::placeholder{
+    font-size: .8rem;
+    color: #FF7A00;
+}
+#admin .search-input .MuiSvgIcon-root{
+    font-size: 1.2rem;
+    color: #FF7A00;
+}
+
+#admin .filter a {
+    font-size: 1rem;
+    cursor: pointer;
+    color: #8f5d2f;
+    margin-top: 1rem;
+    transition: .2s ease;
+    margin-right: 10px;
+}
+#admin .filter a:hover {
+   color: #FF7A00;
+}
+#admin .filter .active{
+   color: #FF7A00;
+}
+
+#admin .wrp-tit-sear {
+    display: flex;
+    align-items: center;
+}
+
+
+.sure {
+    width: 100%;
+    height: 100vh;
+    background-color: #3b1d0261;
+    z-index: 30;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sure .wrp {
+     width: 70%;
+    max-width: 350px;
+    padding: 30px;
+    border-radius: 10px;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    background-color: #FF7A00;
+    position: relative;
+}
+.sure .wrp-info {
+    width: 70%;
+    max-width: 350px;
+    padding: 30px;
+    border-radius: 10px;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    background-color: #FF7A00;
+    position: relative;
+}
+.sure .wrp-down {
+    width: 70%;
+    max-width: 350px;
+    padding: 30px;
+    border-radius: 10px;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    background-color: #FF7A00;
+    position: relative;
+}
+.sure .wrp-down p {
+   margin-bottom: 20px;
+}
+
+.sure button {    
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary-color);
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 8px;
+    margin-top: 2rem;
+    cursor: pointer;
+    transition: background .3s ease-in;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+.sure .wrp-down button {    
+    width: 92%;
+}
+
+.sure button:hover {
+    background-color:#ffffffd2;
+}
+
+.sure .close {
+    position: absolute;
+    top: 15px !important;
+    cursor: pointer;
+    right: 15px !important;
+}
+.sure h2 {
+    font-size: 2rem;
+}
+.sure p {
+    font-size: .9rem;
+    font-weight: 300;
+}
+
+.sure  label{
+    display: flex;
+    align-items: center;
+}
+.sure  label h3{
+    margin-left: 10px;
+}
+
+
+
+@media (max-width: 1100px) {
+    #admin {
+        width: 100%;
+        height: 70rem;
+    }
+    #admin .all_users  .titles .wrp-tit-sear{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    #admin .search-input {
+        margin-top: 1rem;
+        margin-left: 0;
+    }
+    #admin button {
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+    .sure  label h3{
+        font-size: .8rem;
+        margin-left: 5px;
+    }
+}
+
+
+
+.sure input {
+    background-color: #F5F5F5;
+    border: 1px solid #E2E2E2;
+    outline: none;
+    width: 80%;
+    padding: 15px 20px;
+    border-radius: 8px;
+    outline: none;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color:  #898989;
+}
+
+.sure input::placeholder {
+    color: #898989;
+}

@@ -1,530 +1,215 @@
-import { ArrowBack, ArrowForward, Call, MoreVert, Search, Send } from '@mui/icons-material'
-import React, { useEffect, useState } from 'react'
-import "./Chat.css"
-import { doc, getDoc, onSnapshot, orderBy, query, setDoc, updateDoc } from "firebase/firestore";
-import { db, rdb } from "../../firebase.js"
-import { collection, getDocs } from "firebase/firestore";
-import { useAuth } from '../../context/AuthContext'
-import Friend from '../../components/Friend/Friend';
-import { child, get, getDatabase, onValue, orderByChild, push, ref, remove, set } from 'firebase/database';
-import { async } from '@firebase/util';
-import { OptionGroupUnstyled } from '@mui/base';
-import { act } from 'react-dom/test-utils';
-import { Link } from 'react-router-dom';
-import Thinks from '../../components/Thinks/Thinks';
+import {
+  ArrowBack,
+  ArrowForward,
+  MoreVert,
+  Search,
+  Send,
+} from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
+import "./Chat.css";
+import { db, rdb } from "../../firebase.js";
+import { useAuth } from "../../context/AuthContext";
+
+import {
+  child,
+  get,
+  onValue,
+  orderByChild,
+  push,
+  query,
+  ref,
+  remove,
+  set,
+  startAt,
+} from "firebase/database";
+import Thinks from "../../components/Thinks/Thinks";
+
+import { motion } from "framer-motion";
+import useFetchUsers from "../../utilis/getUsers";
+import useFetchUserData from "../../utilis/getUser";
+import useFetchUserFriends from "../../utilis/getFriends";
+import { useChat } from "../../context/ChatContext";
+import CurrentChat from "./components/CurrentChat";
+import Friend from "./components/Friend/Friend";
+import StartChat from "./components/StartChat";
+import { collection, doc, onSnapshot, orderBy } from "firebase/firestore";
 
 const Chat = () => {
-  
-  const [users, setUsers] = useState()
-  const [allUsers, setAllUsers] = useState()
-  const [allFriends, setAllFriends] = useState()
-  const [searchFriend, setSearchFriend] = useState("")
-  const [activeFriend, setActiveFriend] = useState("")
-  const [dataActiveFriend, setDataActiveFriend] = useState("")
-  const [loading, setLoading] = useState(true)
-  const [deleteSection, setDeleteSection] = useState(false)
+  const [users, setUsers] = useState();
+  const [allUsers, setAllUsers] = useState();
+  const [allFriends, setAllFriends] = useState();
+  const [searchFriend, setSearchFriend] = useState("");
+  const [activeFriend, setActiveFriend] = useState("");
+  const [loading, setLoading] = useState(true);
 
+  const [friends, setFriends] = useState();
 
-  const [friends, setFriends] = useState()
+  const [findFriends, setFindFriends] = useState();
 
+  const { currentUser } = useAuth();
 
-  const [message, setMessage] = useState("")
+  const [friendsLoading, setFriendsLoading] = useState(true);
 
-  const { currentUser } = useAuth()
-  
-  const dbRef = ref(getDatabase());
+  const { data } = useChat();
 
-  const [messages, setMessages] = useState()
-  const [allmessages, setAllMessages] = useState()
-
-
-  const [userData, setUserData] = useState()
-  
-
-  //DOSTAT DATA OD CURRENT UZIVATELA
-  const getCurrentUserData = () => {
-    const starCountRef = ref(rdb, `users/${currentUser.uid}/`);
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      setUserData(data);
-    });
-  }
-
-  //DOSTAT VSETKYCH UZIVATELOV
-  const getUsers = async() => {
-    /*const usersRef = collection(db, "users");
-    const q = query(usersRef, orderBy("username"));
-
-    await getDocs(q)
-        .then((querySnapshot)=>{               
-          const data = querySnapshot.docs.map((doc) => ({...doc.data(), id:doc.id }));
-          setUsers(data);                
-    })*/
-
-
-    /*get(child(dbRef, `users/`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        let data = snapshot.val()
-        setUsers(data)
-      } else {
-        setUsers()
-      }
-    }).then(() => {
-      
-    }).catch((error) => {
-      console.error(error);
-    });*/
-
-    const starCountRef = ref(rdb, `users/`);
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      setUsers(data);
-    });
-
-
-  }
-
-  //DOSTAT ACTIVNEHO FRIENDA
-  const getActiveFriend = () => {
- 
-      const starCountRef = ref(rdb, `users/` + activeFriend);
-      onValue(starCountRef, (snapshot) => {
-        const data = snapshot.val();
-        setDataActiveFriend(data);
-        console.log(data)
-        setDeleteSection(false)
-        setTimeout(() => {
-          const message_ele = document.querySelector(".message:nth-last-child(1)")
-          message_ele.scrollIntoView();
-        }, 100)
-     });
-
-
-    }
-    
-  //HANDLER NA POSLANIE SPRAVY
-  const handleSendMessage = () => {
-        if(message.length > 0) {
-          sendMessage(currentUser.uid, activeFriend, message, new Date())
-          //getMessages()
-          //getFriends()
-          setMessage("")
-          setTimeout(() => {
-            const message_ele = document.querySelector(".message:nth-last-child(1)")
-            message_ele.scrollIntoView();
-            //var objDiv = document.getElementById("chat-center");
-            //objDiv.scrollTop = objDiv.scrollHeight;
-          }, 300)
-        }
-  }
-
-
-
- 
-  //POSLANIE SPRAVY DO RDB 
-  const sendMessage = (fromId, toId, message, date) => {
-
-   //const autoId = rdb.ref('messages/' + fromId + toId).push().key
-   const autoId = push(ref(rdb, "message")).key
-
-    set(ref(rdb, 'messages/' + fromId + toId + "/" + autoId), {
-      fromId: fromId,
-      toId: toId,
-      message: message,
-      date: date
-    });
-    
-    set(ref(rdb, 'messages/' + toId + fromId + "/" + autoId), {
-      fromId: fromId,
-      toId: toId,
-      message: message,
-      date: date
-    });
-
-
-    set(ref(rdb, 'users/' + currentUser.uid + "/messages/" + activeFriend), {
-      message: message,
-      timestamp: new Date().valueOf(),
-      fromId: currentUser.uid,
-      toId: activeFriend, 
-      id: activeFriend, 
-      saw: true,
-      username: allUsers.filter(user => {return user.id === activeFriend}).map(user => { return user.username}),
-    });
-
-    set(ref(rdb, 'users/' + activeFriend + "/messages/" + currentUser.uid), {
-      message: message,
-      timestamp: new Date().valueOf(),
-      fromId: currentUser.uid,
-      toId: activeFriend, 
-      id: currentUser.uid, 
-      saw: false,
-      username: allUsers.filter(user => {return user.id === activeFriend}).map(user => { return user.username}),
-    });
-
-
+  //loading chat menu mobile hide
+  useEffect(() => {
     setTimeout(() => {
-      getMessages()
-      console.log("Sdasdas")
-    }, 100)
-    
+      setLoading(false);
+    }, 1000);
+    document.getElementById("menu").classList.remove("left-menu");
+  }, []);
 
+  useFetchUsers(setUsers, setAllUsers);
+  useFetchUserFriends(currentUser, setFriends, setAllFriends);
 
-  }
- 
+  //mobile responsive hiding search friends and showing chat and reverse
+  useEffect(() => {
+    let friends = document.getElementById("friends");
+    let chat = document.getElementById("messages");
+    if (activeFriend && document.body.clientWidth < 1100) {
+      friends.classList.add("hide-friends");
+      chat.classList.add("show-chat");
+    }
 
-  //DOSTAT VSETKY SPRAVY S ACTIVE FRIEND Z RDB
-  const getMessages = () => {
-    /*get(child(dbRef, `messages/${currentUser.uid + activeFriend}/`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        let data = snapshot.val()
-        setMessages(data)
-      } else {
-        setMessages()
+    if (!activeFriend && document.body.clientWidth < 1100) {
+      friends.classList.remove("hide-friends");
+
+      chat.classList.remove("show-chat");
+    }
+  }, [activeFriend]);
+
+  const [t, setT] = useState();
+
+  //scroll thoughts
+  useEffect(() => {
+    if (!friendsLoading) {
+      setT(document.getElementById("thinks"));
+      if (!t) {
+        setT(document.getElementById("thinks"));
       }
-    }).then(() => {
-      
-    }).catch((error) => {
-      console.error(error);
-    });*/
+    }
+  }, [friendsLoading]);
 
+  useEffect(() => {
+    document.getElementById("menu").classList.remove("left-menu");
+    document.body.style.overflow = "visible";
+  }, []);
 
-    const starCountRef = ref(rdb, `messages/${currentUser.uid + activeFriend}/`);
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      setMessages(data);
+  useEffect(() => {
+    if (allFriends) {
       setTimeout(() => {
-        const message_ele = document.querySelector(".message:nth-last-child(1)")
-        message_ele.scrollIntoView();
-      }, 100)
-    });
+        setFriendsLoading(false);
+      }, 1000);
+    }
+  }, [friends]);
 
+  const handleSearch = (searchText) => {
+    setSearchFriend(searchText);
+    if (searchText.length < 1) {
+      // Handle minimum search length requirement
+      setFindFriends(null);
+      return;
+    }
 
-  }
+    const usersRef = collection(db, "users");
+    const queryRef = query(usersRef, orderBy("name"));
 
- 
-  const getFriends = () => {
+    onSnapshot(queryRef, (docSnapshot) => {
+      // if (!docSnapshot.exists()) return;
+      console.log(docSnapshot);
 
-   /* get(child(dbRef, `users/${currentUser.uid}/messages/`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        let data = snapshot.val()
-        setFriends(data)
-      } else {
-        setFriends()
+      const searchData = docSnapshot.docs.map((doc) => doc.data());
+      const searchResults = [];
+      // console.log(docSnapshot.docs);
+      if (searchData) {
+        console.log(searchData);
+        searchData.forEach((data) => {
+          if (data.id === currentUser.uid) {
+            return;
+          }
+          const name = data.name;
+          if (name.toLowerCase().includes(searchText.toLowerCase())) {
+            searchResults.push(data);
+          }
+        });
       }
-    }).then(() => {
-      
-    }).catch((error) => {
-      console.error(error);
-    }); */
-
-    const starCountRef = ref(rdb, `users/${currentUser.uid}/messages/`, orderByChild('timestamp'));
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      setFriends(data);
+      console.log(searchResults);
+      // Handle the search results
+      setFindFriends(searchResults);
+      // Update state or perform any other actions
     });
-
-  }
-
-
-  // PO NACITANI CHAT SECTION SA NACITAJU VSETKY USERS A FRIENDS
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 1000)
-    document.getElementById("menu").classList.remove("left-menu")
-  }, [])
-
-  useEffect(() => {
-    if(!loading) {
-      getUsers()
-      getFriends()
-      getCurrentUserData()
-    }
-  }, [loading])
-
-  //AK SA CLIKNE NA FRIEND TAK SA VYKONA TOTO:  (DOSTANES VSETKY MESSAGES OD NEHO)
-  useEffect(() => {
-
-    if(activeFriend) {
-      getActiveFriend()
-      getMessages()
-      console.log("active friend useEffect")
-      if(messages) {
-        setTimeout(() => {
-          const message_ele = document.querySelector(".message:nth-last-child(1)")
-          message_ele.scrollIntoView();
-        }, 100)
-      }
-    }
-
-  }, [activeFriend])
-
-  //ZMENOU FRIENDA DOSTANES MESSAGES, ZMENOU MESSAGES DOSTANES NOVE MESSAGES
-  /*useEffect(() => {
-
-    if(activeFriend) {
-     getMessages()
-     getFriends()
-    }
-
-  }, [activeFriend, messages])*/
-
-
-  //DAT MESSAGES Z JEDNOHO POLA DO POLA Z OBJEKTOM SPRAV
-  useEffect(() => {
-
-    console.log("useEffect messages")
-    let array = []
-        
-     for(let i in messages) {
-         array.push(messages[i])
-         setAllMessages(array)
-     }
-     if(array.length === 0) {
-         setAllMessages(array)
-     }
-
-  }, [messages])
-
-  useEffect(() => {
-    
-    let array = []
-        
-     for(let i in users) {
-         array.push(users[i])
-         setAllUsers(array)
-     }
-     if(array.length === 0) {
-         setAllUsers(array)
-     }
-
-  }, [users])
-
-  useEffect(() => {
-    
-    let array = []
-        
-     for(let i in friends) {
-         array.push(friends[i])
-         setAllFriends(array)
-     }
-     if(array.length === 0) {
-         setAllFriends(array)
-     }
-
-  }, [friends])
-
-  //ODOSLANIE SPRAVY POMOCOU ENTER
-  const keyDownHandler = (e) => {
-    if(e.keyCode === 13) {
-        handleSendMessage()
-    }
-  }
-
-
-  //VYMAZANIE CHATU
-  const handleDeleteChat = () => {
-    remove(ref(rdb, "messages/" + currentUser.uid + activeFriend))
-
-    setActiveFriend()
-
-    remove(ref(rdb, "users/"+currentUser.uid+"/messages/"+activeFriend))
-  }
-
-
-  useEffect(() => {
-    let friends = document.getElementById("friends")
-    let chat = document.getElementById("messages")
-    if(activeFriend && document.body.clientWidth < 1100) {
-
-      friends.classList.add("hide-friends")
-      chat.classList.add("show-chat")
-    
-      console.log(chat, friends)
-
-    } 
-
-    if(!activeFriend && document.body.clientWidth < 1100) {
-      friends.classList.remove("hide-friends")
-   
-      chat.classList.remove("show-chat")
-    }
-
-
-  }, [activeFriend])
-  
-
-   
-  const thinks = document.getElementById("thinks")
-
-
-  const handleMoveRight = () => {
-    thinks.scroll({
-        left: thinks.scrollLeft + 200,
-        behavior: "smooth"
-      })
-  }
-
-
-  const handleMoveLeft = () => {
-    thinks.scroll({
-      left: thinks.scrollLeft - 200,
-      behavior: "smooth"
-    })
-  }
-
-
-
- 
-
+  };
 
   return (
-    <div id="chat" >
-      <div className='wrapper-chat' >
-        <div className='left-side-friends friends white-box' id='friends' >
-            <div className='search' >
-              <div className='search-input' >
-                  <Search />
-                  <input value={searchFriend} onChange={(e) => setSearchFriend(e.target.value)} placeholder='Vyhľadaj priateľov...' />
-              </div>
+    <div id="chat">
+      <div className="wrapper-chat">
+        <div className="left-side-friends friends white-box" id="friends">
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="search"
+          >
+            <div className="search-input">
+              <Search />
+              <input
+                value={searchFriend}
+                onChange={(e) => handleSearch(e.target.value)}
+                placeholder="Search friends..."
+              />
             </div>
-            <div className='friends-searched' >
-            { allUsers && <div>
-              {searchFriend.length > 1 && allUsers.filter(user => {
-                  return user.id !== currentUser.uid && user.id !== activeFriend
-              }).filter(user => {
-                  const username = user.username.toLowerCase().includes(searchFriend.toLowerCase())
-                  return username
-              }).map(friend => (
-                 <Friend handleSendMessage={handleSendMessage} allUsers={allUsers} key={friend.id} friend={friend} setActiveFriend={setActiveFriend} setSearchFriend={setSearchFriend} />
+          </motion.div>
+          <div className="friends-searched">
+            {friendsLoading && <div className="loader-w"></div>}
+
+            {findFriends &&
+              searchFriend.length > 1 &&
+              findFriends.map((f) => (
+                <Friend
+                  allUsers={allUsers}
+                  key={f.id}
+                  friend={f}
+                  setSearchFriend={setSearchFriend}
+                />
               ))}
-              </div>}
 
-
-              {/* Active Friend */}
-              {activeFriend && 
-                allUsers.filter((u) => {
-                  return u.id === activeFriend && u.id !== currentUser.uid && allFriends.filter(f => {return f.id === u.id}).map(u => {return u.id}).length === 0
-                }).map((friend) => (
-                  <Friend handleSendMessage={handleSendMessage} allUsers={allUsers} key={friend.id} friend={friend} activeFriend={activeFriend} setActiveFriend={setActiveFriend} setSearchFriend={setSearchFriend} /> 
-                ))
-              }
-
-                {!loading && users && friends && searchFriend.length < 1 &&
-
-                  allFriends.sort((a, b) => {
-                    return b.timestamp - a.timestamp
-                  }).map((f) => (
-                    <Friend handleSendMessage={handleSendMessage} allUsers={allUsers} key={f.id} friend={f} activeFriend={activeFriend} setActiveFriend={setActiveFriend} setSearchFriend={setSearchFriend} />
-                  )) 
-
-                
-                
-                }
-               
-
-                
-                { allFriends && allUsers && !activeFriend &&
-                  allFriends.length === 0 && searchFriend.length < 1 && <p className='no-friends' >
-                    Zatiaľ nemáš žiadných priateľov stačí len vyhladať ich.
-                  </p>
-                }
-
-
-             
-            </div>
-        </div>
-        <div className='right-side r-messages white-box' id="messages" >
-            {activeFriend && dataActiveFriend && 
-            <div id="chat-wrapper" >
-              <div className='top-bar'>
-                  <div className='wrapper' >
-                    <ArrowBack className='chat-left' onClick={() => {
-                      setActiveFriend()
-                      setDataActiveFriend();
-                    }} />
-                    <img src={dataActiveFriend.profilePic} />
-                    <h3>{dataActiveFriend.username}</h3>
-                  </div>
-                 
-                  {deleteSection &&
-                  <div onClick={handleDeleteChat} className='delete-section' >
-                    <a>Delete</a>
-                  </div> }
-                  <div>
-                    <MoreVert className='more-top' onClick={() => setDeleteSection(!deleteSection)} />
-                  </div>
-              </div>
-              <div id="chat-center" className='center-bar messages' >
-
-                 
-                {allmessages && allmessages.map((m) => (
-                  
-                  <div className={m.fromId === currentUser.uid ? "message right-mess" : "message left-mess"} >
-                    <p>{m.message}</p>
-                  </div>
-                  
+            {allFriends &&
+              !friendsLoading &&
+              searchFriend.length < 1 &&
+              allFriends
+                .sort((a, b) => {
+                  return b.timestamp - a.timestamp;
+                })
+                .filter((a) => {
+                  return !a.block;
+                })
+                .map((f) => (
+                  <Friend
+                    allUsers={allUsers}
+                    key={f.id}
+                    friend={f}
+                    setSearchFriend={setSearchFriend}
+                  />
                 ))}
 
+            {!friendsLoading &&
+              allFriends.length === 0 &&
+              searchFriend.length < 1 && (
+                <p className="no-friends">
+                  You have not any friends yet, just search them
+                </p>
+              )}
+          </div>
+        </div>
+        <div className="right-side r-messages white-box" id="messages">
+          {friendsLoading && <div className="loader-w"></div>}
 
-
-              </div>
-              <div className='bottom-bar send-message' >
-                  <div className='send-message' >
-                    <input onKeyUp={keyDownHandler} value={message} onChange={(e) => setMessage(e.target.value)} placeholder='Správa...' />
-                    <Send  onClick={handleSendMessage}  className='send-icon' />
-                  </div>
-              </div>
-            </div> }
-            {!activeFriend && !dataActiveFriend && userData && 
-
-             <div className='starter-chat' >
-              <div className='profile'  >
-                <img className='st' src={userData.profilePic} />
-                <h3>{userData.username}</h3>
-                <p className='st' >Začnite chatovať so svojimi priateľmi</p>
-              </div>
-              {
- 
-              friends &&
-              
-              <div className='thinkers' >
-                <div className='titles' >
-                  <h4>Myšlienky priatelov</h4>
-                  <ArrowBack className='icon' onClick={handleMoveLeft} />
-                  <ArrowForward className='icon' onClick={handleMoveRight} />
-                </div>
-                <div className='thinks-wrp' id='thinks' >
-                  <div className='thinks-content' >
-                    {friends && users && 
-
-
-                      
-
-                      allFriends.map((u) => (
-
-                        allUsers.filter((f) => {
-                          return f.id === u.id
-                        }).map((u) => (
-                          <Thinks setActiveFriend={setActiveFriend} user={u} />
-                        ))
-
-                      ))
-
-
-                    }
-                  </div>
-                </div>
-              </div>
-            }
-             </div>
-              
-           }
+          {!friendsLoading && data.user ? <CurrentChat /> : <StartChat />}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Chat
+export default Chat;

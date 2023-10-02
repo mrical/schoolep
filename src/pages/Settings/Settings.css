@@ -31,19 +31,19 @@ margin-top: 5vh;
 #settings .wrapper-settings .content .change-password h4{
 font-size: .7rem;
 }
-#settings .wrapper-settings .content .edit-username{
+#settings .wrapper-settings .content .edit-name{
 display: flex;
 flex-direction: row;
 align-items: center;
 }
-#settings .wrapper-settings .content .edit-username h2{
+#settings .wrapper-settings .content .edit-name h2{
    font-family: "Poppins" ,sans-serif;
    font-weight: 600;
    color: #FF7A00;
    font-size: 1.8rem;
    outline: none;
 }
-#settings .wrapper-settings .content .edit-username .edit-username{
+#settings .wrapper-settings .content .edit-name .edit-name{
    font-family: "Poppins" ,sans-serif;
    font-weight: 900;
    color: #FF7A00;

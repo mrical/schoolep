@@ -34,3 +34,24 @@
     font-size: .8rem;
     margin-top: 10px;
 }
+
+@media (max-width: 1000px) {
+  .unseen .img-wrp{
+    width: 40px;
+    height: 40px;
+  }
+  .unseen .img-wrp::after{
+    width: 5px;
+    height: 5px;
+ }
+ .unseen h3 {
+  font-size: .7rem;
+  margin-top: 6px;
+}
+#home .unseen-wrp {
+  padding: 10px 20px;
+  display: flex;
+  height: 60%;
+  margin-top: 10px;
+}
+}

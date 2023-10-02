@@ -16,12 +16,31 @@
     width: 27%;
     height: 100%;
 }
-
+#chat .r-messages {
+    position: relative;
+}
+#chat .r-messages .loader-w {
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
 
 #chat .friends-searched {
     overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
     height: calc(100% - 100px);
+}
+
+
+#chat .user-banned {
+    font-family: "Poppins", sans-serif;
+    color: #FF7A00;
+    font-weight: 300;
+    font-size: .8rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #chat .friends-searched::-webkit-scrollbar {
@@ -131,7 +150,8 @@
    margin-left: 10px;
 }
 #chat .friend img {
-   width: 40px;
+   width: 40px !important;
+   height: 40px !important;
    border-radius: 100%;
    margin-left: 5px;
 }
@@ -202,6 +222,7 @@
 
 #chat-wrapper .top-bar img{
    width: 50px;
+   height: 50px;
    border-radius: 100%;
    margin-left: 30px;
 }
@@ -257,11 +278,11 @@
   }
 
 
-#chat-wrapper .center-bar.messages{
-   
-}
+
 #chat-wrapper .center-bar  .message{
-   max-width: 200px;
+    max-width: 200px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 #chat-wrapper .center-bar  .message.right-mess {
    background-color: var(--primary-color);
@@ -342,6 +363,7 @@
 #chat .starter-chat img.st{
     border-radius: 50%;
     width: 130px;
+    height: 130px;
 }
 #chat .starter-chat h3{
     font-size: 2rem;
@@ -446,14 +468,24 @@
     #chat .friend .wrapper{
         width: 90%;
     }
+    #chat .friend .right-side {
+        margin-left: 20px;
+    }
 }
 
 
-
+@media (max-width: 700px) {
+    #chat-wrapper .top-bar {
+        height: 6rem;
+    }
+    #chat-wrapper .bottom-bar {
+        height: 100px;
+    }
+}
 
 #chat .img-mood {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     position: relative;
 }
 #chat .img-mood img {
@@ -465,4 +497,26 @@
     top: -5px;
     right: -5px;
     font-size: .7rem;
+}
+
+
+.loader-w {
+    width: 30px;
+    height: 30px;
+    border-bottom: 2px solid #FF7A00;
+    animation: rot 1s ease infinite;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    margin-top: 30px;
+    transform: translateY(-50%);
+}
+
+@keyframes rot {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

@@ -1,4 +1,4 @@
-.auth-right-side {
+.auth-left-side {
     width: 50%;
     height: 100%;
     background-color: var(--primary-color);
@@ -9,21 +9,21 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.auth-right-side .content {
+.auth-left-side .content {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.auth-right-side h3 {
+.auth-left-side h3 {
     font-size: 2rem;
     font-weight: 900;
     color: white;
     letter-spacing: 5px;
 }
 
-.auth-right-side p {
+.auth-left-side p {
     font-style: normal;
     font-weight: 700;
     width: 70%;
@@ -35,13 +35,13 @@
     margin-top: 1vh;
 }
 
-.auth-right-side img {
+.auth-left-side img {
     margin-top: 7rem;
     width: 20vw;
 }
 
 @media (max-width: 1000px) {
-    .auth-right-side {
+    .auth-left-side {
         display: none;
     }
 

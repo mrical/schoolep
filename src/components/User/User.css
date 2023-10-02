@@ -1,0 +1,110 @@
+#user {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    margin:10px 0;
+    width: 90%;
+    font-family: "Poppins", sans-serif;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+} 
+#user .wrp{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+} 
+#user .content{
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+} 
+#user .wrp-btn{
+   width: 15%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+} 
+
+#user h3 {
+    color: #FF7A00;
+}
+#user p.email {
+    color: #ff7b00ec;
+    font-size: .9rem;
+    font-weight: 300;
+}
+
+#user .wrp-p {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#user .wrp-p p{
+   margin-right: 20px;
+}
+#user .wrp-who {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+#user .ver {
+    font-style: italic;
+}
+#user .last {
+    font-style: italic;
+    color: #8e4b0dc4;
+    font-weight: 300;
+}
+#user .verify{
+    color: #079b56;
+}
+#user .notverify{
+    color: #ff0022;
+}
+
+#user .icon {
+    color: #FF7A00;
+    cursor: pointer;
+    margin: 0 8px;
+    font-size: 1.2rem;
+}
+#user .icon-r {
+    color: #ff3700;
+    cursor: pointer;
+    margin: 0 8px;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 1100px) {
+    #user .wrp-p {
+        display: none;
+    }
+    #user .icon {
+        font-size: 1rem !important;
+        margin: 0 2px;
+    }
+    #user .icon-r {
+        font-size: 1rem !important;
+        margin: 0 2px;
+    }
+    #user {
+        width: 80%;
+    } 
+}
+
+@media (max-width: 700px) {
+    #user .icon {
+        font-size: 2rem !important;
+        margin: 0 2px;
+    }
+    #user .icon-r {
+        font-size: 2rem !important;
+        margin: 0 2px;
+    }
+}
