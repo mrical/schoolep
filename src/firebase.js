@@ -8,15 +8,15 @@ import { getAuth } from "firebase/auth";
 
 //Paste here your own firebaseConfig
 const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: "",
-  measurementId: "",
-  databaseURL: "",
+  apiKey: "AIzaSyD_DOWWIMFPQ20tA7fQB4aZwGy6qzKYSPY",
+  authDomain: "net-ninja-firestore-efec2.firebaseapp.com",
+  databaseURL: "https://net-ninja-firestore-efec2.firebaseio.com",
+  projectId: "net-ninja-firestore-efec2",
+  storageBucket: "net-ninja-firestore-efec2.appspot.com",
+  messagingSenderId: "495744816837",
+  appId: "1:495744816837:web:caf69470f4e2651004c2ac",
+  measurementId: "G-QCHQGFX4Z4",
+  databaseURL: "https://net-ninja-firestore-efec2.firebaseio.com/",
 };
 
 //inicialition function

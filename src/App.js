@@ -151,7 +151,8 @@ const App = ({ children }) => {
     console.log(currentPlan);
     if (
       !currentPlan.loading &&
-      currentPlan.requestLimit - user.userChatRequestCount < 5
+      currentPlan.requestLimit - user.userChatRequestCount <
+        parseInt(process.env.REACT_APP_POPUP_LIMIT)
     ) {
       setSnackbar((snackbar) => ({
         ...snackbar,

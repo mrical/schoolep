@@ -22,6 +22,7 @@ const StripePricingTable = () => {
 
     await Promise.all(
       data.map(async (product) => {
+        console.log(userCurrency);
         const { data: prices } = await stripe.prices.list({
           product: product.id,
           active: true,
@@ -75,7 +76,7 @@ const StripePricingTable = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [userCurrency]);
   useEffect(() => {
     const getUser = () => {
       const starCountRef = doc(db, `users/${currentUser.uid}`);
