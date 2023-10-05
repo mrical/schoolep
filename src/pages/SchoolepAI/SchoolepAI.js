@@ -32,6 +32,7 @@ const SchoolepAI = () => {
     fetch(`${process.env.REACT_APP_API_BASEURL}/api/chat/`, {
       method: "POST",
       headers: {
+        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
         Authorization: `${userIdToken}`,
       },
