@@ -29,9 +29,8 @@ const SchoolepAI = () => {
     //how to do it is in documentation.docx
     //cyclic.app
 
-    fetch(`${process.env.REACT_APP_API_BASEURL}/api/chat/`, {
+    fetch(`${process.env.REACT_APP_API_BASEURL}/api/chat`, {
       method: "POST",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
         Authorization: `${userIdToken}`,
