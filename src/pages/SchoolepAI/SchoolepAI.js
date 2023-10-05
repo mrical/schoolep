@@ -29,7 +29,7 @@ const SchoolepAI = () => {
     //how to do it is in documentation.docx
     //cyclic.app
 
-    fetch(`${process.env.REACT_APP_API_BASEURL}/api/chat`, {
+    fetch(`${process.env.REACT_APP_API_BASEURL}/api/chat/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
