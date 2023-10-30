@@ -29,7 +29,7 @@ const SchoolepAI = () => {
     //how to do it is in documentation.docx
     //cyclic.app
 
-    fetch(`${process.env.REACT_APP_API_BASEURL}/api/chat`, {
+    fetch(`https://us-central1-net-ninja-firestore-efec2.cloudfunctions.net/chat`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

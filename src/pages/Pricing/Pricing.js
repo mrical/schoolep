@@ -15,7 +15,7 @@ const StripePricingTable = () => {
   const [userCurrency, setUserCurrency] = useState("usd");
   const currentPlan = usePremiumStatus(user);
   const [productsLoading, setProductsLoading] = useState();
-  const getProducts = async () => {
+  const getProducts = async (currentPlan) => {
     setProductsLoading(true);
     const { data } = await stripe.products.list({ active: true });
     const products = {};
@@ -49,7 +49,9 @@ const StripePricingTable = () => {
       })
     );
     setProducts(products);
-    setProductsLoading(false);
+    if (!currentPlan.loading) {
+      setProductsLoading(false);
+    }
   };
   useEffect(() => {
     const script = document.createElement("script");
@@ -72,11 +74,11 @@ const StripePricingTable = () => {
     const currency = country == "IN" ? "inr" : "usd";
     setUserCurrency(currency);
     try {
-      getProducts();
+      getProducts(currentPlan);
     } catch (error) {
       console.log(error);
     }
-  }, [userCurrency]);
+  }, [userCurrency, currentPlan]);
   useEffect(() => {
     const getUser = () => {
       const starCountRef = doc(db, `users/${currentUser.uid}`);
