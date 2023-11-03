@@ -117,13 +117,11 @@ const Chat = () => {
 
     onSnapshot(queryRef, (docSnapshot) => {
       // if (!docSnapshot.exists()) return;
-      console.log(docSnapshot);
 
       const searchData = docSnapshot.docs.map((doc) => doc.data());
       const searchResults = [];
       // console.log(docSnapshot.docs);
       if (searchData) {
-        console.log(searchData);
         searchData.forEach((data) => {
           if (data.id === currentUser.uid) {
             return;
@@ -134,7 +132,6 @@ const Chat = () => {
           }
         });
       }
-      console.log(searchResults);
       // Handle the search results
       setFindFriends(searchResults);
       // Update state or perform any other actions

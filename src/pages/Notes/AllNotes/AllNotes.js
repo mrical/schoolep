@@ -151,7 +151,6 @@ const AllNotes = () => {
           {allFolders &&
             allFolders.length > 0 &&
             allFolders.map((n) => {
-              console.log("note", n);
               return (
                 <Link
                   className="folder-a"

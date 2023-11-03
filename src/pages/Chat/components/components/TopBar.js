@@ -28,7 +28,6 @@ const TopBar = (props) => {
     const unChng = onSnapshot(starCountRef, (docSnapshot) => {
       if (!docSnapshot.exists()) return;
       const d = docSnapshot.data();
-      console.log("d",d)
       setDataActiveFriend(d);
     });
 

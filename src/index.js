@@ -26,6 +26,7 @@ import Admin from "./pages/Admin/Admin";
 import { Elements } from "@stripe/react-stripe-js";
 import Pricing from "./pages/Pricing/Pricing";
 import { initializeStripe } from "./utilis/initializeStripe";
+import { UserIPinfoProvider } from "./context/UserCurrencyContext";
 
 //Path ---- / (routes),,,, hashRouter #
 
@@ -131,6 +132,20 @@ const router = createHashRouter([
     ),
   },
   {
+    path: "/admin",
+
+    element: (
+      <PrivateRoute>
+        <AdminRoute>
+          <App>
+            <Admin />
+          </App>
+        </AdminRoute>
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
     path: "/login",
     element: <Login />,
   },
@@ -147,12 +162,14 @@ const options = {};
 const stripePromise = initializeStripe();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <Elements stripe={stripePromise} options={options}>
-        <ChatContextProvider>
-          <RouterProvider router={router} />
-        </ChatContextProvider>
-      </Elements>
-    </AuthProvider>
+    <UserIPinfoProvider>
+      <AuthProvider>
+        <Elements stripe={stripePromise} options={options}>
+          <ChatContextProvider>
+            <RouterProvider router={router} />
+          </ChatContextProvider>
+        </Elements>
+      </AuthProvider>
+    </UserIPinfoProvider>
   </React.StrictMode>
 );

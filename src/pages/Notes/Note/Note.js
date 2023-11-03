@@ -95,8 +95,6 @@ const Note = () => {
 
   const handleNote = () => {
     if (noteName.length > 2) {
-      console.log(note.noteFolder);
-      console.log(noteFolder);
 
       if (note.noteFolder === "all") {
         updateDoc(doc(db, "notes/" + currentUser.uid + "/all/" + path_id), {

@@ -9,7 +9,6 @@ const useFetchUsers = (setUsers, setAllUsers) => {
       let array = docSnapshot.docs.map((childSnapshot) => {
         return childSnapshot.data();
       });
-      console.log(array);
       setUsers(array);
       setAllUsers(array);
     };

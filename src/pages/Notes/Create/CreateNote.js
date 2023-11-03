@@ -38,7 +38,6 @@ const CreateNote = () => {
     if (quill) {
       quill.on("text-change", () => {
         setEditorValue(quillRef.current.firstChild.innerHTML);
-        console.log(quillRef.current.firstChild.innerHTML);
       });
     }
   }, [quill]);
@@ -57,7 +56,6 @@ const CreateNote = () => {
 
   const handleCreateNote = async () => {
     // const autoId = (await addDoc(collection(db, "noteIds"), {})).id;
-    console.log("noteFolder", noteFolder);
     const autoId = push(ref(rdb, "notes")).key;
     if (noteName.length > 2 && noteFolder === "all") {
       setDoc(doc(db, "notes/" + currentUser.uid + "/all/" + autoId), {
@@ -70,7 +68,6 @@ const CreateNote = () => {
 
       navigation("/notes");
     } else if (noteName.length > 2 && noteFolder !== "all") {
-      console.log("noteFolder", noteFolder);
       setDoc(doc(db, "notes/" + currentUser.uid + "/all/" + autoId), {
         value: editorValue,
         id: autoId,
@@ -109,7 +106,6 @@ const CreateNote = () => {
 
   useEffect(() => {
     let array = [];
-    console.log(folders);
     for (let i in folders) {
       array.push(folders[i]);
       setAllFolders(array);
@@ -120,7 +116,6 @@ const CreateNote = () => {
   }, [folders]);
 
   const handleNoteFolder = (e) => {
-    console.log(e);
     console.dir(e.target);
     setNoteFolder(e.target.value);
   };

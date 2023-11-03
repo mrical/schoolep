@@ -29,7 +29,7 @@ const SchoolepAI = () => {
     //how to do it is in documentation.docx
     //cyclic.app
 
-    fetch(`https://us-central1-net-ninja-firestore-efec2.cloudfunctions.net/chat`, {
+    fetch(process.env.AICHAT_END_POINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

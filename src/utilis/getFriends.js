@@ -9,7 +9,6 @@ const useFetchUserFriends = (currentUser, setFriends, setAllFriends) => {
       const array = docSnapshot.docs.map((childSnapshot) => {
         return childSnapshot.data();
       });
-      console.log(array);
       setFriends(array);
       setAllFriends(array);
     };

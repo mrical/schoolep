@@ -146,7 +146,6 @@ const Settings = () => {
                   onChange={(e) => console.log(e)}
                   onKeyUp={(e) => {
                     setName(e.target.innerText);
-                    console.log(e.target.innerText);
                   }}
                 >
                   {user.name}

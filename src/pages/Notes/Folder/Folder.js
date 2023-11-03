@@ -43,7 +43,6 @@ const Folder = () => {
   };
 
   useEffect(() => {
-    console.log(path_id);
     getFolder();
     getNotes();
   }, []);
@@ -61,7 +60,6 @@ const Folder = () => {
   }, [notes]);
 
   const handleDeleteFolder = async () => {
-    console.log("deleting", "notes/" + currentUser.uid + "/folders/" + path_id);
     deleteDoc(doc(db, "notes/" + currentUser.uid + "/folders/" + path_id))
     navigation("/notes");
   };

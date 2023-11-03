@@ -29,7 +29,6 @@ const PricingPlan = ({
   const [user, setUser] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const currentPlan = usePremiumStatus(user);
-  console.log(currentPlan, plan);
   useEffect(() => {
     const getUser = () => {
       const starCountRef = doc(db, `users/${currentUser.uid}`);

@@ -40,7 +40,6 @@ const Input = () => {
   //Send message to Firestore database
   const sendMessage = async (fromId, toId, message, date) => {
     const autoId = push(ref(rdb, "message")).key;
-    console.log("autoId", autoId);
     setDoc(doc(db, "users/" + currentUser.uid + "/messages/" + toId), {
       message: message,
       timestamp: new Date().valueOf(),

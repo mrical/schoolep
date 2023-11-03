@@ -148,7 +148,6 @@ const App = ({ children }) => {
     }
   }, [user]);
   useEffect(() => {
-    console.log(currentPlan);
     if (
       !currentPlan.loading &&
       currentPlan.requestLimit - user.userChatRequestCount <
@@ -314,6 +313,28 @@ const App = ({ children }) => {
                         Pricing
                       </motion.p>
                     </Link>
+                    {user.admin ? (
+                      <Link
+                        to="/admin"
+                        className={path === "/admin" ? "active" : null}
+                      >
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.8 }}
+                          className="ul-icon"
+                        >
+                          <AdminPanelSettings />
+                        </motion.div>
+                        <motion.p
+                          initial={{ opacity: 0, x: 30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.8 }}
+                        >
+                          Admin
+                        </motion.p>
+                      </Link>
+                    ) : null}
                   </ul>
                 </nav>
                 <motion.div

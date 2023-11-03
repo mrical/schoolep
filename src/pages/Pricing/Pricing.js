@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { db } from "../../firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import usePremiumStatus from "../../hooks/usePremiumStatus";
 import { stripe } from "../../utilis/initializeStripe";
 import PricingPlan from "../../components/Pricing/PricingPlan";
+import useUserCurrency from "../../hooks/useUserCurrency";
+import { UserIPinfoContext } from "../../context/UserCurrencyContext";
 
 const StripePricingTable = () => {
   const { currentUser } = useAuth();
@@ -12,7 +14,14 @@ const StripePricingTable = () => {
   const [loading, setLoading] = useState(false);
   const [monthlySelected, setMonthlySelected] = useState(true);
   const [products, setProducts] = useState({ month: [], year: [] });
-  const [userCurrency, setUserCurrency] = useState("usd");
+  const { ipInfo } = useContext(UserIPinfoContext);
+  const [userCurrency, setUserCurrency] = useState(
+    ipInfo.country == "IN" ? "inr" : "usd"
+  );
+  useEffect(() => {
+    setUserCurrency(ipInfo.country == "IN" ? "inr" : "usd");
+  }, [ipInfo]);
+
   const currentPlan = usePremiumStatus(user);
   const [productsLoading, setProductsLoading] = useState();
   const getProducts = async (currentPlan) => {
@@ -22,7 +31,6 @@ const StripePricingTable = () => {
 
     await Promise.all(
       data.map(async (product) => {
-        console.log(userCurrency);
         const { data: prices } = await stripe.prices.list({
           product: product.id,
           active: true,
@@ -69,16 +77,14 @@ const StripePricingTable = () => {
 
     script3.async = true;
     document.body.appendChild(script3);
-    const userLocale = window.navigator.language;
-    const [language, country] = userLocale.split("-");
-    const currency = country == "IN" ? "inr" : "usd";
-    setUserCurrency(currency);
+
+    // setUserCurrency(currency);
     try {
       getProducts(currentPlan);
     } catch (error) {
       console.log(error);
     }
-  }, [userCurrency, currentPlan]);
+  }, [currentPlan]);
   useEffect(() => {
     const getUser = () => {
       const starCountRef = doc(db, `users/${currentUser.uid}`);

@@ -12,15 +12,12 @@ const Messages = () => {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    console.log("messages", data.chatId);
     const starCountRef = doc(db, `messages/${data.chatId}/`);
     const unSub = onSnapshot(
       starCountRef,
       (docSnapshot) => {
-        console.log("docSnapshot", docSnapshot.exists());
         if (!docSnapshot.exists()) return;
         const data = docSnapshot.data();
-        console.log("messages", data);
         const array = [];
         for (let i in data) {
           array.push(data[i]);
@@ -38,7 +35,6 @@ const Messages = () => {
   }, [data.chatId]);
 
   useEffect(() => {
-    console.log("sawTime", data);
     const starCountRef = collection(
       db,
       `users/${currentUser.uid}/messages/${data.user}/sawTime`
@@ -46,9 +42,7 @@ const Messages = () => {
     const unSub = onSnapshot(
       starCountRef,
       (docSnapshot) => {
-        console.log("sawTime", docSnapshot);
         const data = docSnapshot.docs.map((doc) => doc.data());
-        console.log("sawTime", data);
       },
       (error) => {
         console.log("sawTime", error);
