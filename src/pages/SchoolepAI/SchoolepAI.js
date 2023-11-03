@@ -28,8 +28,7 @@ const SchoolepAI = () => {
     //paste here your own url from your own server
     //how to do it is in documentation.docx
     //cyclic.app
-    console.log(process.env.AICHAT_END_POINT);
-    fetch(process.env.AICHAT_END_POINT, {
+    fetch(process.env.REACT_APP_AICHAT_END_POINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
